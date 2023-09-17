@@ -100,7 +100,7 @@ def register():
                 username = request.form.get('username')
                 email = request.form.get('email')
                 password = request.form.get('password')
-                mongo.db.user.insert({'name': username, 'email': email, 'pwd': bcrypt.hashpw(
+                mongo.db.user.insert_one({'name': username, 'email': email, 'pwd': bcrypt.hashpw(
                     password.encode("utf-8"), bcrypt.gensalt())})
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('home'))
@@ -168,13 +168,13 @@ def user_profile():
                 temp = mongo.db.profile.find_one({'email': email}, {
                     'height', 'weight', 'goal', 'target_weight'})
                 if temp is not None:
-                    mongo.db.profile.update({'email': email},
+                    mongo.db.profile.update_one({'email': email},
                                             {'$set': {'weight': temp['weight'],
                                                       'height': temp['height'],
                                                       'goal': temp['goal'],
                                                       'target_weight': temp['target_weight']}})
                 else:
-                    mongo.db.profile.insert({'email': email,
+                    mongo.db.profile.insert_one({'email': email,
                                              'height': height,
                                              'weight': weight,
                                              'goal': goal,
