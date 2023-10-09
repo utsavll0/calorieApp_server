@@ -10,4 +10,4 @@ for i in range(1, len(l)):
 
 for i in range(1, len(l)):
     temp = l[i].split(",")
-    mongo.db.food.insert({'food': temp[0], 'calories': temp[1]})
+    mongo.db.food.insert_one({'food': temp[0], 'calories': temp[1]})
