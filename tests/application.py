@@ -8,7 +8,7 @@ from flask import render_template, session, url_for, flash, redirect, request, F
 from flask_mail import Mail
 from flask_pymongo import PyMongo
 
-from forms import RegistrationForm, LoginForm, UserProfileForm
+from forms import RegistrationForm, UserProfileForm
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -37,40 +37,6 @@ def home():
         return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('login'))
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    """"
-    login() function displays the Login form (login.html) template
-    route "/login" will redirect to login() function.
-    LoginForm() called and if the form is submitted then various values are fetched and verified from the database entries
-    Input: Email, Password, Login Type
-    Output: Account Authentication and redirecting to Dashboard
-    """
-    if not session.get('email'):
-        form = LoginForm()
-        if form.validate_on_submit():
-            temp = mongo.db.user.find_one({'email': form.email.data}, {
-                'email', 'pwd'})
-            if temp is not None and temp['email'] == form.email.data and (
-                bcrypt.checkpw(
-                    form.password.data.encode("utf-8"),
-                    temp['pwd']) or temp['temp'] == form.password.data):
-                flash('You have been logged in!', 'success')
-                session['email'] = temp['email']
-                #session['login_type'] = form.type.data
-                return redirect(url_for('dashboard'))
-            else:
-                flash(
-                    'Login Unsuccessful. Please check username and password',
-                    'danger')
-    else:
-        return redirect(url_for('home'))
-    return render_template(
-        'login.html',
-        title='Login',
-        form=form)
 
 
 @app.route("/logout", methods=['GET', 'POST'])
@@ -108,7 +74,7 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
-"""
+
 @app.route("/calories", methods=['GET', 'POST'])
 def calories():
     # ############################
@@ -138,14 +104,13 @@ def calories():
                     mongo.db.calories.update({'email': email}, {'$set': {
                                              'calories': temp['calories'] + cals, 'burnout': temp['burnout'] + int(burn)}})
                 else:
-                    mongo.db.calories.insert(
+                    mongo.db.calories.insert_one(
                         {'date': now, 'email': email, 'calories': cals, 'burnout': int(burn)})
                 flash(f'Successfully updated the data', 'success')
                 return redirect(url_for('calories'))
     else:
         return redirect(url_for('home'))
     return render_template('calories.html', form=form, time=now)
-"""
 
 @app.route("/user_profile", methods=['GET', 'POST'])
 def user_profile():

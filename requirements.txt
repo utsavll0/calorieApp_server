@@ -1,8 +1,7 @@
 bcrypt==4.0.1
 blinker==1.4
-bson==0.5.10
 certifi==1.0.1
-cffi==1.14.6
+cffi==1.15.1
 click==8.0.1
 colorama==0.4.4
 cryptography==3.4.8
