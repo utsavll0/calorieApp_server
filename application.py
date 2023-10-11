@@ -177,7 +177,7 @@ def user_profile():
                 temp = mongo.db.profile.find_one({'email': email}, {
                     'height', 'weight', 'goal', 'target_weight'})
                 if temp is not None:
-                    mongo.db.profile.update({'email': email},
+                    mongo.db.profile.update_one({'email': email},
                                             {'$set': {'weight': temp['weight'],
                                                       'height': temp['height'],
                                                       'goal': temp['goal'],
