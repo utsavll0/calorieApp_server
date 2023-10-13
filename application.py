@@ -11,7 +11,7 @@ from flask import render_template, session, url_for, flash, redirect, request, F
 from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
-from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm
+from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm,WorkoutForm
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -155,7 +155,30 @@ def calories():
         return redirect(url_for('home'))
     return render_template('calories.html', form=form, time=now)
 
+@app.route("/workout", methods=['GET', 'POST'])
+def workout():
+     now = datetime.now()
+     now = now.strftime('%Y-%m-%d')
+     get_session = session.get('email')
+     
+     if get_session is not None:
+         form = WorkoutForm()
+         if form.validate_on_submit():
+             if request.method == 'POST':
+                email = session.get('email')
+                burn = request.form.get('burnout')
+                
+                
+                mongo.db.calories.insert_one({'date': now, 'email': email, 'calories': -int(burn)})
+               
+                flash(f'Successfully updated the data', 'success')
+                return redirect(url_for('workout'))
+     else:
+        return redirect(url_for('home'))
+     return render_template('workout.html', form=form, time=now)
+  
 
+# print(intake)
 @app.route("/user_profile", methods=['GET', 'POST'])
 def user_profile():
     """
@@ -208,7 +231,21 @@ def history():
     email = get_session = session.get('email')
     if get_session is not None:
         form = HistoryForm()
-    return render_template('history.html', form=form)
+    
+    data=[
+        ("01-01-2020",100),
+        ("02-01-2020",101),
+        ("03-01-2020",102)
+    ]
+
+    # labels=[row[0] for row in data]
+    # values=[row[1] for row in data]
+    labels=[]
+    values=[]
+    for row in data:
+        labels.append(row[0])
+        values.append(row[1])
+    return render_template('history.html', form=form,labels=labels,values=values)
 
 
 @app.route("/ajaxhistory", methods=['POST'])
