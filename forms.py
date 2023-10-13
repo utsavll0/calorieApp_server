@@ -73,7 +73,6 @@ class CalorieForm(FlaskForm):
     food = SelectField(
         'Select Food', choices=result)
 
-    burnout = StringField('Burn Out', validators=[DataRequired()])
     submit = SubmitField('Save')
 
 
