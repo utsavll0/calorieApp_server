@@ -1,66 +1,102 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
 
-</script>
-    <div class="content-section">
-        <form method="POST" onSubmit="event.preventDefault(); return history(event)" name='historyForm'>
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">History</legend>
-                <div class="form-group">
-                    <label class="form-control-label">Date</label>
-                    <input type="date" name="date" required>
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+    </script>
+    {#    <div class="content-section">#}
+    {#        <form method="POST" onSubmit="event.preventDefault(); return history(event)" name='historyForm'>#}
+    {#            {{ form.hidden_tag() }}#}
+    {#            <fieldset class="form-group">#}
+    {#                <legend class="border-bottom mb-4">History</legend>#}
+    {#                <div class="form-group">#}
+    {#                    <label class="form-control-label">Date</label>#}
+    {#                    <input type="date" name="date" required>#}
+    {#                </div>#}
+    {#            </fieldset>#}
+    {#            <div class="form-group">#}
+    {#                {{ form.submit(class="btn btn-outline-info") }}#}
+    {##}
+    {#            </div>#}
+    {#        </form>#}
+    {#    </div>#}
+    {#    <div id="history-data card">#}
+    {#        <h5 class="card-header">History</h5>#}
+    {#        <div class="card-body">#}
+    {#            <p class="border-bottom mb-4 h6" id="date_legend"></p>#}
+    {#            <p class="card-text" id="date"></p> <br>#}
+    {#            <p class="border-bottom mb-4 h6" id="calories_legend"></p>#}
+    {#            <p class="card-text" id="calories"></p> <br>#}
+    {#            <p class="border-bottom mb-4 h6" id="burnout_legend"></p>#}
+    {#            <p class="card-text" id="burnout"></p> <br>#}
+    {#        </div>#}
 
-            </div>
-        </form>
+
+    <div>
+
+        <canvas id="myChart" width="800" height="400"></canvas>
     </div>
-    <div id="history-data card">
-        <h5 class="card-header">History</h5>
-        <div class="card-body">
-            <p class="border-bottom mb-4 h6" id="date_legend"></p>
-            <p class="card-text" id="date"></p> <br>
-            <p class="border-bottom mb-4 h6" id="calories_legend"></p>
-            <p class="card-text" id="calories"></p> <br>
-            <p class="border-bottom mb-4 h6" id="burnout_legend"></p>
-            <p class="card-text" id="burnout"></p> <br>
-        </div>
 
-
-        <div>
-            
-        <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-
-        
-
-        <script>
-            var ctx=document.getElementById('myChart').getContext('2d');
-            var chart=new Chart(ctx, {
-                type:"bar",
-                data:{
-                    labels:{{ labels | safe}},
-                    datasets:[
-                        {
-                            label:"data points",
-                            data:{{values | safe}},
-                            fill:false,
-                            borderColor:"rgb(75,192,192)",
-                            lineTension:0.1
-                        }
-                    ]
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        let delayed;
+        const chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: {{ labels | safe}},
+                datasets: [
+                    {
+                        label: "Calories",
+                        data:{{values | safe}},
+                        fill: false,
+                        lineTension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                elements: {
+                    bar: {
+                        backgroundColor: '#FF638A',
+                    }
                 },
-                options:{
-                    responsive:false
-                }
-            })
-        </script>
-
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Calories burnt/gained in the last 7 days',
+                        padding: {
+                            top: 10,
+                            bottom: 30
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 150 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            },
+        });
+    </script>
     </div>
 
 

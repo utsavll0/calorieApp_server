@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import bcrypt
 import smtplib
@@ -193,16 +193,16 @@ def user_profile():
                     'height', 'weight', 'goal', 'target_weight'})
                 if temp is not None:
                     mongo.db.profile.update_one({'email': email},
-                                            {'$set': {'weight': temp['weight'],
-                                                      'height': temp['height'],
-                                                      'goal': temp['goal'],
-                                                      'target_weight': temp['target_weight']}})
+                                                {'$set': {'weight': temp['weight'],
+                                                          'height': temp['height'],
+                                                          'goal': temp['goal'],
+                                                          'target_weight': temp['target_weight']}})
                 else:
                     mongo.db.profile.insert_one({'email': email,
-                                             'height': height,
-                                             'weight': weight,
-                                             'goal': goal,
-                                             'target_weight': target_weight})
+                                                 'height': height,
+                                                 'weight': weight,
+                                                 'goal': goal,
+                                                 'target_weight': target_weight})
 
             flash(f'User Profile Updated', 'success')
             return render_template('display_profile.html', status=True, form=form)
@@ -223,21 +223,49 @@ def history():
     email = get_session = session.get('email')
     if get_session is not None:
         form = HistoryForm()
-    
-    data=[
-        ("01-01-2020",100),
-        ("02-01-2020",101),
-        ("03-01-2020",102)
-    ]
 
+    data = []
     # labels=[row[0] for row in data]
     # values=[row[1] for row in data]
-    labels=[]
-    values=[]
+    labels = []
+    values = []
     for row in data:
         labels.append(row[0])
         values.append(row[1])
-    return render_template('history.html', form=form,labels=labels,values=values)
+    start_date = (datetime.today() - timedelta(days=7))
+    end_date = datetime.today()
+    bucket_boundaries = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d') for i in range(7)]
+    date_range_filter = {
+        '$match': {
+            'date': {
+                '$gte': start_date.strftime('%Y-%m-%d'),
+                '$lte': end_date.strftime('%Y-%m-%d')
+            },
+        }
+    }
+    total_calories_each_day = {
+        '$bucket': {
+            'groupBy': '$date',
+            'boundaries': bucket_boundaries,
+            'default': 'Other',
+            'output': {
+                'date': {
+                    '$max': '$date'
+                },
+                'total_calories': {
+                    '$sum': '$calories'
+                }
+            }
+        }
+    }
+    filtered_calories = mongo.db.calories.aggregate([
+        date_range_filter,
+        total_calories_each_day
+    ])
+    for calorie_each_day in filtered_calories:
+        labels.append(calorie_each_day['date'])
+        values.append(calorie_each_day['total_calories'])
+    return render_template('history.html', form=form, labels=labels, values=values)
 
 
 @app.route("/ajaxhistory", methods=['POST'])
