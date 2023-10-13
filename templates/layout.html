@@ -37,7 +37,8 @@
             {% else %}
             <div class="navbar-nav mr-4">
               <a class="nav-item nav-link" href="{{ url_for('calories') }}">Enter Calories</a>
-              <a class="nav-item nav-link" href="{{ url_for('history') }}">History</a>
+              <a class="nav-item nav-link" href="/history">Your plan</a>
+              <a class="nav-item nav-link" href="/workout">Burnout</a>
               <a class="nav-item nav-link" href="{{url_for('friends')}}">Friends</a>
               <a class="nav-item nav-link btn btn-link" href="{{ url_for('user_profile') }}">Profile</button>
             </div>
@@ -90,7 +91,7 @@
                     <div class="col-lg-6 col-md-6">
                         <ul class="list-unstyled text-muted">
                         <li><a class="nav-item nav-link" href="{{ url_for('calories') }}">Enter Calories</a></li>
-                        <li><a class="nav-item nav-link" href="{{ url_for('history') }}">History</a></li>
+                        <li><a class="nav-item nav-link" href="/history">Your plan</a></li>
                         <li><a class="nav-item nav-link" href="{{url_for('friends')}}">Friends</a></li>
                         <li><a class="nav-item nav-link" href="{{ url_for('user_profile') }}">Profile</a></li>
                         </ul>
