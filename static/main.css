@@ -148,3 +148,8 @@
         height: 35vh;
         object-fit: contain;
     }
+
+    .user-chart {
+      display: flex;
+      justify-content: center;
+    }

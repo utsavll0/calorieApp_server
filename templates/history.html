@@ -4,42 +4,34 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js">
 
     </script>
-    {#    <div class="content-section">#}
-    {#        <form method="POST" onSubmit="event.preventDefault(); return history(event)" name='historyForm'>#}
-    {#            {{ form.hidden_tag() }}#}
-    {#            <fieldset class="form-group">#}
-    {#                <legend class="border-bottom mb-4">History</legend>#}
-    {#                <div class="form-group">#}
-    {#                    <label class="form-control-label">Date</label>#}
-    {#                    <input type="date" name="date" required>#}
-    {#                </div>#}
-    {#            </fieldset>#}
-    {#            <div class="form-group">#}
-    {#                {{ form.submit(class="btn btn-outline-info") }}#}
-    {##}
-    {#            </div>#}
-    {#        </form>#}
-    {#    </div>#}
-    {#    <div id="history-data card">#}
-    {#        <h5 class="card-header">History</h5>#}
-    {#        <div class="card-body">#}
-    {#            <p class="border-bottom mb-4 h6" id="date_legend"></p>#}
-    {#            <p class="card-text" id="date"></p> <br>#}
-    {#            <p class="border-bottom mb-4 h6" id="calories_legend"></p>#}
-    {#            <p class="card-text" id="calories"></p> <br>#}
-    {#            <p class="border-bottom mb-4 h6" id="burnout_legend"></p>#}
-    {#            <p class="card-text" id="burnout"></p> <br>#}
-    {#        </div>#}
-
-
-    <div>
-
-        <canvas id="myChart" width="800" height="400"></canvas>
+    <div class="alert alert-success" role="alert">
+        <h4>Great job with the progress</h4>
+        <hr>
+        <p>
+            {% if burn_rate > 0 %}
+                Continue gaining <b>{{ burn_rate | abs }}</b> calories every day to achieve your goal on <b>{{ target_date }}</b>
+            {% else %}
+                Continue burning <b>{{ burn_rate | abs }}</b> calories every day to achieve your goal on <b>{{ target_date }}</b>
+            {% endif %}
+        </p>
     </div>
+    <div class="user-chart">
+        <div>
+            <canvas id="myChart" width="1000" height="400"></canvas>
+        </div>
+    </div>
+
 
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         let delayed;
+        let isBurn;
+        {% if burn_rate > 0 %}
+            isBurn = false
+        {% else %}
+            isBurn = true
+        {% endif %}
+        console.log(isBurn)
         const chart = new Chart(ctx, {
             type: "bar",
             data: {
@@ -57,17 +49,29 @@
                 responsive: false,
                 elements: {
                     bar: {
-                        backgroundColor: '#FF638A',
+                        backgroundColor: function (context) {
+                            if (isBurn) {
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
+                                return value < 0 ? '#84d320' : 'rgba(220,20,60,0.91)';
+                            } else {
+                                const index = context.dataIndex;
+                                const value = context.dataset.data[index];
+                                return value < 0 ? 'rgba(220,20,60,0.91)' : '#84d320';
+                            }
+                        },
                     }
                 },
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Calories burnt/gained in the last 7 days',
-                        padding: {
-                            top: 10,
-                            bottom: 30
+                        text: 'Net calories in the last 7 days',
+                        font: {
+                            size: 15,
                         }
+                    },
+                    legend: {
+                        display: false
                     }
                 },
                 scales: {

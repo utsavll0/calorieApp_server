@@ -12,6 +12,7 @@ from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
 from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm,WorkoutForm
+from service import history as history_service
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -198,23 +199,23 @@ def workout():
      now = datetime.now()
      now = now.strftime('%Y-%m-%d')
      get_session = session.get('email')
-     
+
      if get_session is not None:
          form = WorkoutForm()
          if form.validate_on_submit():
              if request.method == 'POST':
                 email = session.get('email')
                 burn = request.form.get('burnout')
-                
-                
+
+
                 mongo.db.calories.insert_one({'date': now, 'email': email, 'calories': -int(burn)})
-               
+
                 flash(f'Successfully updated the data', 'success')
                 return redirect(url_for('workout'))
      else:
         return redirect(url_for('home'))
      return render_template('workout.html', form=form, time=now)
-  
+
 
 @app.route("/history", methods=['GET'])
 def history():
@@ -229,48 +230,44 @@ def history():
     if get_session is not None:
         form = HistoryForm()
 
-    data = []
-    # labels=[row[0] for row in data]
-    # values=[row[1] for row in data]
+    # Find out the last 7 day's calories burnt by the user
     labels = []
     values = []
-    for row in data:
-        labels.append(row[0])
-        values.append(row[1])
-    start_date = (datetime.today() - timedelta(days=7))
-    end_date = datetime.today()
-    bucket_boundaries = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d') for i in range(7)]
-    date_range_filter = {
-        '$match': {
-            'date': {
-                '$gte': start_date.strftime('%Y-%m-%d'),
-                '$lte': end_date.strftime('%Y-%m-%d')
-            },
-        }
-    }
-    total_calories_each_day = {
-        '$bucket': {
-            'groupBy': '$date',
-            'boundaries': bucket_boundaries,
-            'default': 'Other',
-            'output': {
-                'date': {
-                    '$max': '$date'
-                },
-                'total_calories': {
-                    '$sum': '$calories'
-                }
-            }
-        }
-    }
-    filtered_calories = mongo.db.calories.aggregate([
-        date_range_filter,
-        total_calories_each_day
-    ])
+    pipeline = history_service.get_calories_per_day_pipeline(7)
+    filtered_calories = mongo.db.calories.aggregate(pipeline)
     for calorie_each_day in filtered_calories:
+        if calorie_each_day['_id'] == 'Other':
+            continue
+        net_calories = int(calorie_each_day['total_calories']) - 2000
         labels.append(calorie_each_day['date'])
-        values.append(calorie_each_day['total_calories'])
-    return render_template('history.html', form=form, labels=labels, values=values)
+        values.append(str(net_calories))
+
+    # The first day when the user registered or started using the app
+    user_start_date = mongo.db.user.find({'email' : email})[0]['start_date']
+    user_target_date = mongo.db.user.find({'email' : email})[0]['target_date']
+    target_weight = mongo.db.user.find({'email' : email})[0]['target_weight']
+    current_weight = mongo.db.user.find({'email' : email})[0]['weight']
+
+    # Find out the actual calories which user needed to burn/gain to achieve goal from the start day
+    target_calories_to_burn = history_service.total_calories_to_burn(
+        target_weight=int(target_weight), current_weight=int(current_weight))
+    print(f'########## {target_calories_to_burn}')
+
+    # Find out how many calories user has gained or burnt uptill now
+    calories_till_today = mongo.db.calories.aggregate(
+        history_service.get_calories_burnt_till_now_pipeline(email, user_start_date))
+    current_calories = 0
+    for calorie in calories_till_today:
+        current_calories += calorie['SUM']
+    # current_calories = [x for x in calories_till_today][0]['SUM'] if len(list(calories_till_today)) != 0 else 0
+    
+    # Find out no of calories user has to burn/gain in future per day
+    calories_to_burn = history_service.calories_to_burn(target_calories_to_burn, current_calories,
+                                                        target_date=datetime.strptime(user_target_date, '%Y-%m-%d'),
+                                                        start_date=datetime.strptime(user_start_date, '%Y-%m-%d'))
+
+    return render_template('history.html', form=form, labels=labels, values=values, burn_rate=calories_to_burn,
+                           target_date=user_target_date)
 
 
 @app.route("/ajaxhistory", methods=['POST'])
@@ -350,34 +347,34 @@ def send_email():
     data = list(mongo.db.calories.find({'email': email}, {'date','email','calories','burnout'}))
     table = [['Date','Email ID','Calories','Burnout']]
     for a in data:
-        tmp = [a['date'],a['email'],a['calories'],a['burnout']] 
-        table.append(tmp) 
-    
+        tmp = [a['date'],a['email'],a['calories'],a['burnout']]
+        table.append(tmp)
+
     friend_email = str(request.form.get('share')).strip()
     friend_email = str(friend_email).split(',')
     server = smtplib.SMTP_SSL("smtp.gmail.com",465)
     #Storing sender's email address and password
     sender_email = "calorie.app.server@gmail.com"
     sender_password = "Temp@1234"
-    
+
     #Logging in with sender details
     server.login(sender_email,sender_password)
     message = 'Subject: Calorie History\n\n Your Friend wants to share their calorie history with you!\n {}'.format(tabulate(table))
     for e in friend_email:
         print(e)
         server.sendmail(sender_email,e,message)
-        
+
     server.quit()
-    
+
     myFriends = list(mongo.db.friends.find(
         {'sender': email, 'accept': True}, {'sender', 'receiver', 'accept'}))
     myFriendsList = list()
-    
+
     for f in myFriends:
         myFriendsList.append(f['receiver'])
 
     allUsers = list(mongo.db.user.find({}, {'name', 'email'}))
-    
+
     pendingRequests = list(mongo.db.friends.find(
         {'sender': email, 'accept': False}, {'sender', 'receiver', 'accept'}))
     pendingReceivers = list()
@@ -389,7 +386,7 @@ def send_email():
         {'receiver': email, 'accept': False}, {'sender', 'receiver', 'accept'}))
     for p in pendingApprovals:
         pendingApproves.append(p['sender'])
-        
+
     return render_template('friends.html', allUsers=allUsers, pendingRequests=pendingRequests, active=email,
                            pendingReceivers=pendingReceivers, pendingApproves=pendingApproves, myFriends=myFriends, myFriendsList=myFriendsList)
 
