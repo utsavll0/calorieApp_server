@@ -107,8 +107,10 @@ def register():
                 height = request.form.get('height')
                 target_weight = request.form.get('target_weight')
                 target_date = request.form.get('target_date')
+                now = datetime.now()
+                now = now.strftime('%Y-%m-%d')
                 mongo.db.user.insert_one({'name': username, 'email': email, 'pwd': bcrypt.hashpw(
-                    password.encode("utf-8"), bcrypt.gensalt()), 'weight': weight, 'height': height, 'target_weight': target_weight, 'target_date':target_date})
+                    password.encode("utf-8"), bcrypt.gensalt()), 'weight': weight, 'height': height, 'target_weight': target_weight,'start_date' : now, 'target_date':target_date})
             flash(f'Account created for {form.username.data}!', 'success')
             session['email'] = email
             return redirect(url_for('dashboard'))
