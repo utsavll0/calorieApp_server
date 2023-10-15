@@ -93,8 +93,8 @@ def register():
     register() function displays the Registration portal (register.html) template
     route "/register" will redirect to register() function.
     RegistrationForm() called and if the form is submitted then various values are fetched and updated into database
-    Input: Username, Email, Password, Confirm Password
-    Output: Value update in database and redirected to home login page
+    Input: Username, Email, Password, Confirm Password, cuurent height, current weight, target weight, target date
+    Output: Value update in database and redirected to dashboard
     """
     if not session.get('email'):
         form = RegistrationForm()
@@ -103,13 +103,59 @@ def register():
                 username = request.form.get('username')
                 email = request.form.get('email')
                 password = request.form.get('password')
+                weight = request.form.get('weight')
+                height = request.form.get('height')
+                target_weight = request.form.get('target_weight')
+                target_date = request.form.get('target_date')
+                now = datetime.now()
+                now = now.strftime('%Y-%m-%d')
                 mongo.db.user.insert_one({'name': username, 'email': email, 'pwd': bcrypt.hashpw(
-                    password.encode("utf-8"), bcrypt.gensalt())})
+                    password.encode("utf-8"), bcrypt.gensalt()), 'weight': weight, 'height': height, 'target_weight': target_weight,'start_date' : now, 'target_date':target_date})
             flash(f'Account created for {form.username.data}!', 'success')
-            return redirect(url_for('home'))
+            session['email'] = email
+            return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route("/user_profile", methods=['GET', 'POST'])
+def user_profile():
+    """
+    user_profile() function displays the UserProfileForm (user_profile.html) template
+    route "/user_profile" will redirect to user_profile() function.
+    user_profile() called and if the form is submitted then various values are fetched and updated into the database entries
+    Input: Email, height, weight, goal, Target weight
+    Output: Value update in database and redirected to home login page
+    """
+    if session.get('email'):
+        form = UserProfileForm()
+        if form.validate_on_submit():
+            if request.method == 'POST':
+                email = session.get('email')
+                weight = request.form.get('weight')
+                height = request.form.get('height')
+                goal = request.form.get('goal')
+                target_weight = request.form.get('target_weight')
+                temp = mongo.db.profile.find_one({'email': email}, {
+                    'height', 'weight', 'goal', 'target_weight'})
+                if temp is not None:
+                    mongo.db.profile.update_one({'email': email},
+                                            {'$set': {'weight': temp['weight'],
+                                                      'height': temp['height'],
+                                                      'goal': temp['goal'],
+                                                      'target_weight': temp['target_weight']}})
+                else:
+                    mongo.db.profile.insert_one({'email': email,
+                                             'height': height,
+                                             'weight': weight,
+                                             'goal': goal,
+                                             'target_weight': target_weight})
+
+            flash(f'User Profile Updated', 'success')
+            return render_template('display_profile.html', status=True, form=form)
+    else:
+        return redirect(url_for('login'))
+    return render_template('user_profile.html', status=True, form=form)
 
 
 @app.route("/calories", methods=['GET', 'POST'])
@@ -169,47 +215,6 @@ def workout():
         return redirect(url_for('home'))
      return render_template('workout.html', form=form, time=now)
   
-
-# print(intake)
-@app.route("/user_profile", methods=['GET', 'POST'])
-def user_profile():
-    """
-    user_profile() function displays the UserProfileForm (user_profile.html) template
-    route "/user_profile" will redirect to user_profile() function.
-    user_profile() called and if the form is submitted then various values are fetched and updated into the database entries
-    Input: Email, height, weight, goal, Target weight
-    Output: Value update in database and redirected to home login page
-    """
-    if session.get('email'):
-        form = UserProfileForm()
-        if form.validate_on_submit():
-            if request.method == 'POST':
-                email = session.get('email')
-                weight = request.form.get('weight')
-                height = request.form.get('height')
-                goal = request.form.get('goal')
-                target_weight = request.form.get('target_weight')
-                temp = mongo.db.profile.find_one({'email': email}, {
-                    'height', 'weight', 'goal', 'target_weight'})
-                if temp is not None:
-                    mongo.db.profile.update_one({'email': email},
-                                                {'$set': {'weight': temp['weight'],
-                                                          'height': temp['height'],
-                                                          'goal': temp['goal'],
-                                                          'target_weight': temp['target_weight']}})
-                else:
-                    mongo.db.profile.insert_one({'email': email,
-                                                 'height': height,
-                                                 'weight': weight,
-                                                 'goal': goal,
-                                                 'target_weight': target_weight})
-
-            flash(f'User Profile Updated', 'success')
-            return render_template('display_profile.html', status=True, form=form)
-    else:
-        return redirect(url_for('login'))
-    return render_template('user_profile.html', status=True, form=form)
-
 
 @app.route("/history", methods=['GET'])
 def history():

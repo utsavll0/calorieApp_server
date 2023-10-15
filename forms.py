@@ -7,6 +7,7 @@ from wtforms.fields.core import DateField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from apps import App
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -16,6 +17,19 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField(
         'Confirm Password', validators=[
             DataRequired(), EqualTo('password')])
+    weight = StringField(
+        'Weight', validators=[
+            DataRequired(), Length(
+                min=2, max=20), ])
+    height = StringField(
+        'Height', validators=[
+            DataRequired(), Length(
+                min=2, max=20)])
+    target_weight = StringField(
+        'Target Weight', validators=[
+            DataRequired(), Length(
+                min=2, max=20)])
+    target_date = DateField(DataRequired())
     submit = SubmitField('Sign Up')
 
     def validate_email(self, email):
@@ -33,6 +47,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
 
 class WorkoutForm(FlaskForm):
     app = App()
@@ -54,6 +69,7 @@ class WorkoutForm(FlaskForm):
 
     burnout = StringField('Burn Out', validators=[DataRequired()])
     submit = SubmitField('Save')
+
 
 class CalorieForm(FlaskForm):
     app = App()
@@ -107,6 +123,7 @@ class EnrollForm(FlaskForm):
     app = App()
     mongo = app.mongo
     submit = SubmitField('Enroll')
+
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
