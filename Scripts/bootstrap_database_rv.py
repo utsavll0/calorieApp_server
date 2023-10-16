@@ -10,7 +10,11 @@ def add_fake_values_to_database(email: str, days: int):
     calories = db.get_collection('calories')
     for i in range(0, days + 1):
         date = datetime.date.today() - datetime.timedelta(days=i)
-        calories.insert_one({'date': str(date), 'email': email, 'calories': random.randint(2100, 2300)})
+        calories.insert_one({
+            'date': str(date),
+            'email': email,
+            'calories': random.randint(2100, 2300)
+        })
     print("Positive Values have been added to the database")
 
 
@@ -22,7 +26,11 @@ def add_fake_negetive_values_to_database(email: str, days: int):
         if random.randint(0, 69420) % 2 == 0:
             continue
         date = datetime.date.today() - datetime.timedelta(days=i)
-        calories.insert_one({'date': str(date), 'email': email, 'calories': random.randint(-500, 0)})
+        calories.insert_one({
+            'date': str(date),
+            'email': email,
+            'calories': random.randint(-500, 0)
+        })
     print("Negative values have been added to the database")
 
 
