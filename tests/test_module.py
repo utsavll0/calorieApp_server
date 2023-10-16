@@ -1,6 +1,4 @@
 import unittest
-from application import app
-
 
 class BasicTestCase(unittest.TestCase):
 
