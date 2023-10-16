@@ -10,25 +10,24 @@ from apps import App
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+                           validators=[DataRequired(),
+                                       Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField(
-        'Confirm Password', validators=[
-            DataRequired(), EqualTo('password')])
-    weight = StringField(
-        'Weight', validators=[
-            DataRequired(), Length(
-                min=2, max=20), ])
-    height = StringField(
-        'Height', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
+        'Confirm Password', validators=[DataRequired(),
+                                        EqualTo('password')])
+    weight = StringField('Weight',
+                         validators=[
+                             DataRequired(),
+                             Length(min=2, max=20),
+                         ])
+    height = StringField('Height',
+                         validators=[DataRequired(),
+                                     Length(min=2, max=20)])
     target_weight = StringField(
-        'Target Weight', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
+        'Target Weight', validators=[DataRequired(),
+                                     Length(min=2, max=20)])
     target_date = DateField(DataRequired())
     submit = SubmitField('Sign Up')
 
@@ -42,8 +41,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
@@ -86,29 +84,24 @@ class CalorieForm(FlaskForm):
         temp = i['food'] + ' (' + i['calories'] + ')'
         result.append((temp, temp))
 
-    food = SelectField(
-        'Select Food', choices=result)
+    food = SelectField('Select Food', choices=result)
 
     submit = SubmitField('Save')
 
 
 class UserProfileForm(FlaskForm):
-    weight = StringField(
-        'Weight', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
-    height = StringField(
-        'Height', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
-    goal = StringField(
-        'Goal', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
+    weight = StringField('Weight',
+                         validators=[DataRequired(),
+                                     Length(min=2, max=20)])
+    height = StringField('Height',
+                         validators=[DataRequired(),
+                                     Length(min=2, max=20)])
+    goal = StringField('Goal',
+                       validators=[DataRequired(),
+                                   Length(min=2, max=20)])
     target_weight = StringField(
-        'Target Weight', validators=[
-            DataRequired(), Length(
-                min=2, max=20)])
+        'Target Weight', validators=[DataRequired(),
+                                     Length(min=2, max=20)])
     submit = SubmitField('Save Profile')
 
 
@@ -128,6 +121,6 @@ class EnrollForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField(
-        'Confirm Password', validators=[
-            DataRequired(), EqualTo('password')])
+        'Confirm Password', validators=[DataRequired(),
+                                        EqualTo('password')])
     submit = SubmitField('Reset')
