@@ -59,6 +59,7 @@ BurnOut is an easy to use application that keeps track of a user's daily calorie
 - [Why use BurnOut?](#why-use-burnout)
 - [Implementation](#implementation)
 - [TechStack Used for the Development of Project:](#techstack-used-for-the-development-of-project)
+- [Help by using our Software:](#help-by-using-our-software)
 - [Core Functionalities of the Application:](#core-functionalities)
   - [Register](#register)
   - [Login](#login)
@@ -97,6 +98,11 @@ Link to the implementation video of the BurnOut application:
  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg" alt="html" width="20" height="20"> CSS3 </br>
  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg" alt="css" width="20" height="20">  HTML 5 </br>
  
+ # Help by using our Software
+ 
+- With the help of our application, users will get to know the proper analysis of their diet and workout plan.
+- The registration form contains the target weight and target date. By filling that, the user will get an  analysis in the form of a bar graph based on their past meal intake and burnout. In addition, it also shows how many more calories does the user has to intake or burn.
+
 # Core Functionalities of the Application
  
  ## Register
