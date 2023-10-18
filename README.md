@@ -107,53 +107,41 @@ Link to the implementation video of the BurnOut application:
  
  ## Register
  
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.41.18%20PM.png>
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/register_page.png>
+- This is the page where a new user can register to use our application. It contains fields like username, email, password, current weight, current height, target weight which the user wants to achieve and the target date. All these fields, once entered, will store in the MongoDB database. 
 
 
  ## Login
 
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.30.27%20PM.png>
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/login_page.png>
+- This is the login page wherein the user can access the functionalities of our application. 
 
 
  ## Set User Profile
  
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.35.05%20PM.png>
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/profile_update.png>
+- This is the page where the user can update his profile. The updated profile will update in the MongoDB database and display it in the frontend. 
 
 
- ## Enter Calories in and burnt
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/calories.png>
-
- ## Chatbot
-
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.31.54%20PM.png>
+ ## Enter Calories in 
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/Calorie_intake.png>
+- This is the page where the user can enter the calories taken. The dropdown contains various food items and its calories. Once selected, it will update it in the database. 
 
 
+## Check Your Plan
+
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/your_plan(updated).jpeg>
+- This is the page where the user can see their history in the form of a bar graph. This graph contains the data from last 7 days. The user can see their progress and can keep a track of how much calories the user needs to burn or intake to achieve their goal within the target date. The x-axis contains the date from last 7 days to the current date and y-axis contains the calories.
 
 
+## Adding Friends
 
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/friends_tab.png>
+- This page contains the list of "My Friends" and "Add friends". Add friends contains all the users who have registered to our application. By selecting the users, they will showup in "My friends" section. The main purpose of this is to share the calories data via email.
 
-
-
-
- ## Check History
-
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/history.png>
-
-
-
-
- ## Add weight alert
- 
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.30.48%20PM.png>
-
- ## Adding Friends
-
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/friends.png>
-
- ## Enrolling into several programs
- 
-<img src=https://github.com/deekay2310/calorieApp_server/blob/main/static/img/Screen%20Shot%202021-12-04%20at%206.32.08%20PM.png>
-
+## Enter burnout
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/workout.png>
+- This is the page where a user can enter the calories burnt. The value will be updated to the database.
 
  # Steps for execution
  
