@@ -146,7 +146,7 @@ for i in range(len(u_cal)):
 '''
 
 diet_report = open(
-    'C:\\Users\\Shivam\\Desktop\\calorieApp_server\\model\\diet_guide.txt',
+    'model/diet_guide.txt',
     "wt")  #path
 
 for i in range(len(u_cal)):
