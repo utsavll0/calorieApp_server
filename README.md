@@ -108,30 +108,30 @@ Link to the implementation video of the BurnOut application:
  ## Register
  
 <img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/register_page.png>
-- This is the page where a new user can register to use our application. It contains fields like username, email, password, current weight, current height, target weight which the user wants to achieve and the target date. All these fields, once entered, will store in the MongoDB database. 
+This is the page where a new user can register to use our application. It contains fields like username, email, password, current weight, current height, target weight which the user wants to achieve and the target date. All these fields, once entered, will store in the MongoDB database. 
 
 
  ## Login
 
 <img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/login_page.png>
-- This is the login page wherein the user can access the functionalities of our application. 
+This is the login page wherein the user can access the functionalities of our application. 
 
 
  ## Set User Profile
  
 <img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/profile_update.png>
-- This is the page where the user can update his profile. The updated profile will update in the MongoDB database and display it in the frontend. 
+This is the page where the user can update his profile. The updated profile will update in the MongoDB database and display it in the frontend. 
 
 
  ## Enter Calories in 
 <img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/Calorie_intake.png>
-- This is the page where the user can enter the calories taken. The dropdown contains various food items and its calories. Once selected, it will update it in the database. 
+This is the page where the user can enter the calories taken. The dropdown contains various food items and its calories. Once selected, it will update it in the database. 
 
 
 ## Check Your Plan
 
-<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/your_plan(updated).jpeg>
-- This is the page where the user can see their history in the form of a bar graph. This graph contains the data from last 7 days. The user can see their progress and can keep a track of how much calories the user needs to burn or intake to achieve their goal within the target date. The x-axis contains the date from last 7 days to the current date and y-axis contains the calories.
+<img src=https://github.com/utsavll0/calorieApp_server/blob/main/static/img/Your_plan_final.jpeg>
+This is the page where the user can see their history in the form of a bar graph. This graph contains the data from last 7 days. The user can see their progress and can keep a track of how much calories the user needs to burn or intake to achieve their goal within the target date. The x-axis contains the date from last 7 days to the current date and y-axis contains the calories.
 
 
 ## Adding Friends
