@@ -145,9 +145,7 @@ for i in range(len(u_cal)):
     print('Consume one of these items', u_cal_food[i],'*',list_occ[i][1], 'times')
 '''
 
-diet_report = open(
-    'model/diet_guide.txt',
-    "wt")  #path
+diet_report = open('model/diet_guide.txt', "wt")  #path
 
 for i in range(len(u_cal)):
     fl = 'Consume one of these items', u_cal_food[i], '*', list_occ[i][
