@@ -3,13 +3,11 @@ from unittest.mock import patch
 from application import app
 import mongomock
 
-
 # @pytest.fixture
 # def client():
 #     with mongomock.patch():
 #         with app.test_client() as client:
 #             yield client
-
 
 # def test_get_user(client):
 #     db = mongomock.MongoClient().db
@@ -26,9 +24,3 @@ import mongomock
 # "2023-11-15"})
 #     # Assert the response status code is 201 Created
 #     assert response.status_code == 200
-
-
-
-
-
-
