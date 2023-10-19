@@ -187,11 +187,18 @@ This is the page where the user can see their history in the form of a bar graph
    4. Bug Fixes
 
    
-   # Team Members
+   # Contributers
    
 <center>
   <table>
     <tr>
+        <td align="center"><a href="https://github.com/utsavll0"><img src="https://avatars.githubusercontent.com/utsavll0" width="100px;" alt=""/><br /><sub><b>Utsavkumar Lal</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/neha7799"><img src="https://avatars.githubusercontent.com/neha7799" width="100px;" alt=""/><br /><sub><b>Neha Patil</b></sub></a></td>
+    <td align="center"><a href="https://github.com/ojas1901"><img src="https://avatars.githubusercontent.com/ojas1901" width="100px;" alt=""/><br /><sub><b>Ojas Kulkarni</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Viggy12126"><img src="https://avatars.githubusercontent.com/Viggy12126" width="100px;" alt=""/><br /><sub><b>Vighnesh Hegde</b></sub></a><br /></td>
+    </tr>
+    <tr>
+      <tr><td></td></tr>
         <td align="center"><a href="https://github.com/deekay2310"><img src="https://avatars.githubusercontent.com/u/29257773?v=4" width="100px;" alt=""/><br /><sub><b>Dev Kumar</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PrakruthiSomashekar"><img src="https://avatars.githubusercontent.com/u/62984587?v=4" width="100px;" alt=""/><br /><sub><b>Prakruthi Somashekar</b></sub></a></td>
     <td align="center"><a href="https://github.com/radhikaraman20"><img src="https://avatars.githubusercontent.com/u/89432698?s=400&v=4" width="100px;" alt=""/><br /><sub><b>Radhika Raman</b></sub></a><br /></td>
