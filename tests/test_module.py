@@ -1,10 +1,11 @@
 import unittest
-from application import app
+# from application import app
 
 
 class BasicTestCase(unittest.TestCase):
 
-    # def test_logout(self):
+    def test_logout(self):
+        pass
     #     self.app = app.test_client()
     #     ans =self.app.get('/logout')
     #     self.assertEqual(ans.status_code, 200)

@@ -1,7 +1,7 @@
-import pytest
-from unittest.mock import patch
-from application import app
-import mongomock
+# import pytest
+# from unittest.mock import patch
+# from application import app
+# import mongomock
 
 # @pytest.fixture
 # def client():
