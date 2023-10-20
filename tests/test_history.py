@@ -8,12 +8,12 @@ class TestHistoryService(unittest.TestCase):
     def test_total_calories_to_burn_a(self):
         tw = 90
         cw = 100
-        self.assertEquals(history.total_calories_to_burn(tw, cw), -77000)
+        self.assertEqual(history.total_calories_to_burn(tw, cw), -77000)
 
     def test_total_calories_to_burn_b(self):
         tw = 100
         cw = 90
-        self.assertEquals(history.total_calories_to_burn(tw, cw), 77000)
+        self.assertEqual(history.total_calories_to_burn(tw, cw), 77000)
 
     def test_calories_to_burn_a(self):
         target_calories = -77000
