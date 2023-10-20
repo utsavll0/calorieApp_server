@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import string
 
-df = pd.read_csv(
-    'C:\\Users\\Shivam\\Desktop\\calorieApp_server\\model\\cleaned_data.csv')
+df = pd.read_csv('model/cleaned_data.csv')
 index_list = df.index.tolist()
 
 client = pymongo.MongoClient('mongodb://localhost:27017')
@@ -146,9 +145,7 @@ for i in range(len(u_cal)):
     print('Consume one of these items', u_cal_food[i],'*',list_occ[i][1], 'times')
 '''
 
-diet_report = open(
-    'C:\\Users\\Shivam\\Desktop\\calorieApp_server\\model\\diet_guide.txt',
-    "wt")  #path
+diet_report = open('model/diet_guide.txt', "wt")  #path
 
 for i in range(len(u_cal)):
     fl = 'Consume one of these items', u_cal_food[i], '*', list_occ[i][
