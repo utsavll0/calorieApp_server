@@ -1,5 +1,9 @@
-# Link to demo/walkthrough video:
-https://drive.google.com/drive/folders/1M5vdCwH11C-MqK8X-Dkf5bPR0SaWA5Yc?usp=sharing
+# walkthrough video:
+
+
+https://github.com/utsavll0/calorieApp_server/assets/122955760/54f2292f-86fa-4b4b-b263-63d470dcd80b
+
+
 <br>
 <br>
 
