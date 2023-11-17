@@ -399,6 +399,33 @@ def friends():
                            myFriendsList=myFriendsList)
 
 
+@app.route('/bmi_calc', methods=['GET', 'POST'])
+def bmi_calci():
+    bmi = ''
+    bmi_category = ''
+    
+    if request.method == 'POST' and 'weight' in request.form:
+        weight = float(request.form.get('weight'))
+        height = float(request.form.get('height'))
+        bmi = calc_bmi(weight, height)
+        bmi_category = get_bmi_category(bmi)
+    
+    return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
+
+def calc_bmi(weight, height):
+    return round((weight / ((height / 100) ** 2)), 2)
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif bmi < 24.9:
+        return 'Normal Weight'
+    elif bmi < 29.9:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
+
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():
     # ############################

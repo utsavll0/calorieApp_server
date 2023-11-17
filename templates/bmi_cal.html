@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Your Health, Your BMI</h1>
+    <div class="main-content">
+      <p>
+        Welcome to our BMI Calculator! Body Mass Index (BMI) is a helpful measure
+        to understand how your weight relates to your height. It's a simple tool
+        that can give you insights into your health.
+      
+        To discover your BMI, input your weight (in kilograms) and height (in
+        centimeters) below:
+      </p>
+
+      <div class="content-section">
+        <form class="pure-form" method="POST" action="/bmi_calc" id="bmi-form">
+          <label for="weightInput">Weight in kilograms:</label><br />
+          <input type="text" name="weight" id="weightInput" placeholder="Enter your weight" required /><br />
+
+          <label for="heightInput">Height in centimeters:</label><br />
+          <input type="text" name="height" id="heightInput" placeholder="Enter your height" required /><br />
+          <br>
+          <button type="button" class="pure-button pure-button-primary" onclick="calculateBMI()">
+            Calculate BMI
+          </button>
+        </form>
+      </div>
+
+      <div id="resultSection" style="display: none;">
+        <p style="text-align: center" class="display-4">
+          Your BMI is <span id="bmiResult"></span>.
+        </p>
+        <p style="text-align: center" class="display-6">You fall into the category of <span id="bmiCategory"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      var weight = document.getElementById("weightInput").value;
+      var height = document.getElementById("heightInput").value;
+
+      // Validate inputs
+      if (!isNumeric(weight) || !isNumeric(height)) {
+        alert("Please enter valid numeric values for weight and height.");
+        return;
+      }
+
+      // Perform BMI calculation here and set the results
+      var bmi = calculateBMIValue(weight, height);
+      var bmiCategory = determineBMICategory(bmi);
+
+      // Display the result section
+      document.getElementById("bmiResult").innerText = bmi;
+      document.getElementById("bmiCategory").innerText = bmiCategory;
+      document.getElementById("resultSection").style.display = "block";
+    }
+
+    function isNumeric(value) {
+      return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+
+    function calculateBMIValue(weight, height) {
+      return (weight / (height / 100) ** 2).toFixed(2);
+    }
+
+    function determineBMICategory(bmi) {
+      if (bmi < 18.5) {
+        return "Underweight";
+      } else if (bmi < 24.9) {
+        return "Normal Weight";
+      } else if (bmi < 29.9) {
+        return "Overweight";
+      } else {
+        return "Obese";
+      }
+    }
+  </script>
+{% endblock content %}
