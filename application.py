@@ -410,18 +410,19 @@ def send_email():
     email = session.get('email')
     data = list(
         mongo.db.calories.find({'email': email},
-                               {'date', 'email', 'calories', 'burnout'}))
-    table = [['Date', 'Email ID', 'Calories', 'Burnout']]
+                               {'date', 'email', 'calories'}))
+    print(data)
+    table = [['Date', 'Email ID', 'Calories']]
     for a in data:
-        tmp = [a['date'], a['email'], a['calories'], a['burnout']]
+        tmp = [a['date'], a['email'], a['calories']]
         table.append(tmp)
 
     friend_email = str(request.form.get('share')).strip()
     friend_email = str(friend_email).split(',')
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     #Storing sender's email address and password
-    sender_email = "calorie.app.server@gmail.com"
-    sender_password = "Temp@1234"
+    sender_email = "calorieapp508@gmail.com"
+    sender_password = "xsba mgzy rnkr wkvp"
 
     #Logging in with sender details
     server.login(sender_email, sender_password)
