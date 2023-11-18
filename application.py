@@ -19,7 +19,6 @@ import os
 from utilities import get_response
 import time
 
-
 # Set the OpenAI API key
 openai.api_key = c.openAI_api_key
 
@@ -55,7 +54,6 @@ with open(history_file, 'w') as f:
 
 # Initialize chat history
 chat_history = ''
-
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -455,20 +453,24 @@ def bmi_calci():
 
     return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
 
+
 @app.route('/chatbot', methods=['GET', 'POST'])
 def chatbot():
     return render_template("chatbot.html")
 
 
-@app.route("/get",  methods=['GET', 'POST'])
+@app.route("/get", methods=['GET', 'POST'])
 # Function for the bot response
 def get_bot_response():
     userText = request.args.get('msg')
-    return str(get_response(chat_history, name, chatgpt_output, userText, history_file, impersonated_role, explicit_input))
+    return str(
+        get_response(chat_history, name, chatgpt_output, userText,
+                     history_file, impersonated_role, explicit_input))
 
-@app.route('/refresh',  methods=['GET', 'POST'])
+
+@app.route('/refresh', methods=['GET', 'POST'])
 def refresh():
-    time.sleep(600) # Wait for 10 minutes
+    time.sleep(600)  # Wait for 10 minutes
     return redirect('/refresh')
 
 
