@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 import credentials as c
-
 import bcrypt
 import smtplib
 import re
