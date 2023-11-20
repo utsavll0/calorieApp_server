@@ -23,3 +23,12 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+#pycache
+__pycache__/
+
+#credentials
+credentials.py
+
+#chat-history
+chat_history

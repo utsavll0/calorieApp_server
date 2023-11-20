@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-
+import credentials as c
 import bcrypt
 import smtplib
 import re
@@ -13,6 +13,46 @@ from flask_pymongo import PyMongo
 from tabulate import tabulate
 from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm, WorkoutForm
 from service import history as history_service
+import openai
+import os
+from utilities import get_response
+import time
+
+# Set the OpenAI API key
+openai.api_key = c.openAI_api_key
+
+# Define the name of the bot
+name = 'BOT'
+
+# Define the role of the bot
+role = 'fitness-advisor, dietician and nutritionist'
+
+# Define the impersonated role with instructions
+impersonated_role = f"""
+    From now on, you are going to act as {name}. Your role is {role}.
+    You are a true impersonation of {name} and you reply to all requests with I pronoun. You never give unknown information.
+    Forward them to the website for more information.
+    YOU ARE NOT AN AI MODEL!
+"""
+
+# Initialize variables for chat history
+explicit_input = ""
+chatgpt_output = 'Chat log: /n'
+cwd = os.getcwd() + '/chat_history/'
+i = 1
+
+# Find an available chat history file
+while os.path.exists(os.path.join(cwd, f'chat_history{i}.txt')):
+    i += 1
+
+history_file = os.path.join(cwd, f'chat_history{i}.txt')
+
+# Create a new chat history file
+with open(history_file, 'w') as f:
+    f.write('\n')
+
+# Initialize chat history
+chat_history = ''
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -399,6 +439,55 @@ def friends():
                            myFriendsList=myFriendsList)
 
 
+@app.route('/bmi_calc', methods=['GET', 'POST'])
+def bmi_calci():
+    bmi = ''
+    bmi_category = ''
+
+    if request.method == 'POST' and 'weight' in request.form:
+        weight = float(request.form.get('weight'))
+        height = float(request.form.get('height'))
+        bmi = calc_bmi(weight, height)
+        bmi_category = get_bmi_category(bmi)
+
+    return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
+
+
+@app.route('/chatbot', methods=['GET', 'POST'])
+def chatbot():
+    return render_template("chatbot.html")
+
+
+@app.route("/get", methods=['GET', 'POST'])
+# Function for the bot response
+def get_bot_response():
+    userText = request.args.get('msg')
+    return str(
+        get_response(chat_history, name, chatgpt_output, userText,
+                     history_file, impersonated_role, explicit_input))
+
+
+@app.route('/refresh', methods=['GET', 'POST'])
+def refresh():
+    time.sleep(600)  # Wait for 10 minutes
+    return redirect('/refresh')
+
+
+def calc_bmi(weight, height):
+    return round((weight / ((height / 100)**2)), 2)
+
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif bmi < 24.9:
+        return 'Normal Weight'
+    elif bmi < 29.9:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
+
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():
     # ############################
@@ -410,18 +499,19 @@ def send_email():
     email = session.get('email')
     data = list(
         mongo.db.calories.find({'email': email},
-                               {'date', 'email', 'calories', 'burnout'}))
-    table = [['Date', 'Email ID', 'Calories', 'Burnout']]
+                               {'date', 'email', 'calories'}))
+    print(data)
+    table = [['Date', 'Email ID', 'Calories']]
     for a in data:
-        tmp = [a['date'], a['email'], a['calories'], a['burnout']]
+        tmp = [a['date'], a['email'], a['calories']]
         table.append(tmp)
 
     friend_email = str(request.form.get('share')).strip()
     friend_email = str(friend_email).split(',')
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     #Storing sender's email address and password
-    sender_email = "calorie.app.server@gmail.com"
-    sender_password = "Temp@1234"
+    sender_email = "calorieapp508@gmail.com"
+    sender_password = c.email_password
 
     #Logging in with sender details
     server.login(sender_email, sender_password)
