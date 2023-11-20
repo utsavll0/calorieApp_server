@@ -24,3 +24,4 @@ six==1.16.0
 tabulate==0.8.9
 Werkzeug==2.0.1
 WTForms==2.3.3
+openai==0.27.2
