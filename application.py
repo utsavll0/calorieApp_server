@@ -228,36 +228,30 @@ def calories():
     route "/calories" will redirect to calories() function.
     CalorieForm() called and if the form is submitted then various values are fetched and updated into the database entries
     Input: Email, date, food, burnout
-    Output: Value update in database and redirected to home page
+    Output: Value update in database and redirected to the home page
     """
-    now = datetime.now()
-    now = now.strftime('%Y-%m-%d')
-
     get_session = session.get('email')
     if get_session is not None:
         form = CalorieForm()
         if form.validate_on_submit():
-            if request.method == 'POST':
-                email = session.get('email')
-                food = request.form.get('food')
-                # cals = food.split(" ")
-                # print('cals is ',cals)
-                match = re.search(r'\((\d+)\)', food)
-                if match:
-                    cals = int(match.group(1))
-                else:
-                    cals = 0
-                # cals = int(cals[1][1:len(cals[1]) - 1])
-                mongo.db.calories.insert_one({
-                    'date': now,
-                    'email': email,
-                    'calories': cals
-                })
-                flash(f'Successfully updated the data', 'success')
-                return redirect(url_for('calories'))
+            email = session.get('email')
+            date = form.date.data.strftime('%Y-%m-%d')  # Get the selected date from the form
+            food = form.food.data
+            match = re.search(r'\((\d+)\)', food)
+            if match:
+                cals = int(match.group(1))
+            else:
+                cals = 0
+            mongo.db.calories.insert_one({
+                'date': date,
+                'email': email,
+                'calories': cals
+            })
+            flash('Successfully updated the data', 'success')
+            return redirect(url_for('calories'))
     else:
         return redirect(url_for('home'))
-    return render_template('calories.html', form=form, time=now)
+    return render_template('calories.html', form=form, time=datetime.now().strftime('%Y-%m-%d'))
 
 
 @app.route("/workout", methods=['GET', 'POST'])
@@ -269,20 +263,20 @@ def workout():
     if get_session is not None:
         form = WorkoutForm()
         if form.validate_on_submit():
-            if request.method == 'POST':
-                email = session.get('email')
-                burn = request.form.get('burnout')
+            email = session.get('email')
+            burnout = form.burnout.data
 
-                mongo.db.calories.insert_one({
-                    'date': now,
-                    'email': email,
-                    'calories': -int(burn)
-                })
+            mongo.db.workout.insert_one({
+                'date': form.date.data.strftime('%Y-%m-%d'),  # Get the selected date from the form
+                'email': email,
+                'burnout': burnout
+            })
 
-                flash(f'Successfully updated the data', 'success')
-                return redirect(url_for('workout'))
+            flash('Successfully updated the data', 'success')
+            return redirect(url_for('workout'))
     else:
         return redirect(url_for('home'))
+    
     return render_template('workout.html', form=form, time=now)
 
 
