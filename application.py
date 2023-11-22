@@ -16,7 +16,7 @@ from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserPro
 from service import history as history_service
 import openai
 import os
-from utilities import get_response
+from utilities import *
 import time
 
 # Set the OpenAI API key
@@ -231,6 +231,7 @@ def calories():
     Output: Value update in database and redirected to the home page
     """
     get_session = session.get('email')
+    print(get_session)
     if get_session is not None:
         form = CalorieForm()
         if form.validate_on_submit():
@@ -294,16 +295,23 @@ def history():
         form = HistoryForm()
 
     # Find out the last 7 day's calories burnt by the user
-    labels = []
-    values = []
-    pipeline = history_service.get_calories_per_day_pipeline(7)
-    filtered_calories = mongo.db.calories.aggregate(pipeline)
-    for calorie_each_day in filtered_calories:
-        if calorie_each_day['_id'] == 'Other':
+    calorie_day_map = {}
+    entries = get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
+    for entry in entries:
+        if entry['_id'] == 'Other':
             continue
-        net_calories = int(calorie_each_day['total_calories']) - 2000
-        labels.append(calorie_each_day['date'])
-        values.append(str(net_calories))
+        net_calories = int(entry['calories'])-2000
+        curr_date = entry['date']
+        if(curr_date not in calorie_day_map):
+            calorie_day_map[curr_date] = net_calories
+        else:
+            calorie_day_map[curr_date] += net_calories
+    
+    labels = list(calorie_day_map.keys())
+    values = list(calorie_day_map.values())
+    for i in range(len(values)):
+        values[i] = str(values[i])
+    
 
     # The first day when the user registered or started using the app
     user_start_date = mongo.db.user.find({'email': email})[0]['start_date']
