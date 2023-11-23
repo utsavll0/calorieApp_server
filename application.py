@@ -475,22 +475,6 @@ def refresh():
     time.sleep(600)  # Wait for 10 minutes
     return redirect('/refresh')
 
-
-def calc_bmi(weight, height):
-    return round((weight / ((height / 100)**2)), 2)
-
-
-def get_bmi_category(bmi):
-    if bmi < 18.5:
-        return 'Underweight'
-    elif bmi < 24.9:
-        return 'Normal Weight'
-    elif bmi < 29.9:
-        return 'Overweight'
-    else:
-        return 'Obese'
-
-
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():
     # ############################
