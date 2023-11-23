@@ -1,0 +1,18 @@
+
+23/11 14:23:17 User: How are you? 
+23/11 14:23:17 Assistant: Mocked response
+
+23/11 14:24:53 User: How are you? 
+23/11 14:24:53 Assistant: Mocked response
+
+23/11 14:25:10 User: How are you? 
+23/11 14:25:10 Assistant: Mocked response
+
+23/11 14:27:11 User: How are you? 
+23/11 14:27:11 Assistant: Mocked response
+
+23/11 14:31:04 User: How are you? 
+23/11 14:31:04 Assistant: Mocked response
+
+23/11 14:31:50 User: How are you? 
+23/11 14:31:50 Assistant: Mocked response
