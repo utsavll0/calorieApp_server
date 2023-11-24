@@ -2,79 +2,146 @@
 
 {% block content %}
   <div class="container">
-    <h1>Your Health, Your BMI</h1>
     <div class="main-content">
+      <br>
+      <h1>Your Health, Your BMI</h1>
       <p>
         Welcome to our BMI Calculator! Body Mass Index (BMI) is a helpful measure
         to understand how your weight relates to your height. It's a simple tool
         that can give you insights into your health.
       
-        To discover your BMI, input your weight (in kilograms) and height (in
+        To discover your BMI, input your age, gender, weight (in kilograms), and height (in
         centimeters) below:
       </p>
 
-      <div class="content-section">
-        <form class="pure-form" method="POST" action="/bmi_calc" id="bmi-form">
-          <label for="weightInput">Weight in kilograms:</label><br />
-          <input type="text" name="weight" id="weightInput" placeholder="Enter your weight" required /><br />
+      <div class="content-section-container">
+        <div class="content-section">
+          <div class="container">
+            <div class="box">
+              <h1>BMI Calculator</h1>
+              <br>
+              <div class="content">
+                <form class="pure-form" method="POST" action="/bmi_calc" id="bmi-form">
+                  <div class="input">
+                    <label for="ageInput">Age</label>
+                    <input type="text" name="age" id="ageInput" placeholder="Enter your age" required/>
+                  </div>
 
-          <label for="heightInput">Height in centimeters:</label><br />
-          <input type="text" name="height" id="heightInput" placeholder="Enter your height" required /><br />
-          <br>
-          <button type="button" class="pure-button pure-button-primary" onclick="calculateBMI()">
-            Calculate BMI
-          </button>
-        </form>
-      </div>
+                  <div class="gender">
+                    <label class="container">
+                      <input type="radio" name="gender" id="male"><p class="text">Male</p>
+                      <span class="checkmark"></span>
+                    </label>
 
-      <div id="resultSection" style="display: none;">
-        <p style="text-align: center" class="display-4">
-          Your BMI is <span id="bmiResult"></span>.
-        </p>
-        <p style="text-align: center" class="display-6">You fall into the category of <span id="bmiCategory"></span></p>
+                    <label class="container">
+                      <input type="radio" name="gender" id="female"><p class="text">Female</p>
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <div class="containerHW">
+                    <div class="inputW">
+                      <label for="weightInput">Weight(kg)</label>
+                      <input type="number" id="weightInput" placeholder="Enter your weight" required>
+                    </div>
+
+                    <div class="inputH">
+                      <label for="heightInput">Height(cm)</label>
+                      <input type="number" id="heightInput" placeholder="Enter your height" required>
+                    </div>
+                  </div>
+
+                  <button type="button" class="calculate" onclick="calculateBMI()">
+                    Calculate BMI
+                  </button>
+                </form>
+
+                <div id="resultSection" class="result" style="display: none;">
+                  <p><br>Your BMI is 
+                  <div id="resultValue">0.00</div>
+                  </p>
+                  <p>You fall into the category of <span id="bmiCategory"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="modalText"></p>
     </div>
   </div>
 
   <script>
     function calculateBMI() {
-      var weight = document.getElementById("weightInput").value;
-      var height = document.getElementById("heightInput").value;
+      var ageInput = document.getElementById("ageInput");
+      var heightInput = document.getElementById("heightInput");
+      var weightInput = document.getElementById("weightInput");
+      var male = document.getElementById("male");
+      var female = document.getElementById("female");
+      var resultSection = document.getElementById("resultSection");
 
-      // Validate inputs
-      if (!isNumeric(weight) || !isNumeric(height)) {
-        alert("Please enter valid numeric values for weight and height.");
-        return;
-      }
+      var modal = document.getElementById("myModal");
+      var modalText = document.getElementById("modalText");
 
-      // Perform BMI calculation here and set the results
-      var bmi = calculateBMIValue(weight, height);
-      var bmiCategory = determineBMICategory(bmi);
-
-      // Display the result section
-      document.getElementById("bmiResult").innerText = bmi;
-      document.getElementById("bmiCategory").innerText = bmiCategory;
-      document.getElementById("resultSection").style.display = "block";
-    }
-
-    function isNumeric(value) {
-      return !isNaN(parseFloat(value)) && isFinite(value);
-    }
-
-    function calculateBMIValue(weight, height) {
-      return (weight / (height / 100) ** 2).toFixed(2);
-    }
-
-    function determineBMICategory(bmi) {
-      if (bmi < 18.5) {
-        return "Underweight";
-      } else if (bmi < 24.9) {
-        return "Normal Weight";
-      } else if (bmi < 29.9) {
-        return "Overweight";
+      if (
+        ageInput.value == "" ||
+        heightInput.value == "" ||
+        weightInput.value == "" ||
+        (male.checked == false && female.checked == false)
+      ) {
+        modal.style.display = "block";
+        modalText.innerHTML = `All fields are required!`;
       } else {
-        return "Obese";
+        displayResult();
       }
     }
+
+    function displayResult() {
+      var ageInput = document.getElementById("ageInput");
+      var heightInput = document.getElementById("heightInput");
+      var weightInput = document.getElementById("weightInput");
+      var male = document.getElementById("male");
+      var female = document.getElementById("female");
+      var resultSection = document.getElementById("resultSection");
+      
+      if(heightInput.value == "" || weightInput.value == ""){
+        var bmi = 0;
+      }
+      else{
+        // Calculate BMI
+        var bmi = Number(weightInput.value) / ((Number(heightInput.value) / 100) * (Number(heightInput.value) / 100));
+      }
+      
+      var result = "";
+      if (bmi < 18.5) {
+        result = "Underweight";
+      } else if (18.5 <= bmi && bmi <= 24.9) {
+        result = "Healthy";
+      } else if (25 <= bmi && bmi <= 29.9) {
+        result = "Overweight";
+      } else if (30 <= bmi && bmi <= 34.9) {
+        result = "Obese";
+      } else if (35 <= bmi) {
+        result = "Extremely obese";
+      }
+
+      // Display the result
+      resultSection.style.display = "block";
+      document.getElementById("resultValue").innerHTML = bmi.toFixed(2);
+      document.getElementById("bmiCategory").innerHTML = result;
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+    displayResult();
   </script>
+  
 {% endblock content %}
