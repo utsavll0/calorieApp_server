@@ -6,7 +6,6 @@ def get_calories_per_day_pipeline(days: int):
     end_date = datetime.today()
     bucket_boundaries = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d')
                          for i in range(days + 1)]
-    print(bucket_boundaries)
     date_range_filter = {
         '$match': {
             'date': {
