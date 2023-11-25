@@ -16,3 +16,15 @@
 
 23/11 14:31:50 User: How are you? 
 23/11 14:31:50 Assistant: Mocked response
+
+24/11 19:38:05 User: How are you? 
+24/11 19:38:05 Assistant: Mocked response
+
+24/11 19:38:43 User: How are you? 
+24/11 19:38:43 Assistant: Mocked response
+
+24/11 19:39:11 User: How are you? 
+24/11 19:39:11 Assistant: Mocked response
+
+24/11 19:39:51 User: How are you? 
+24/11 19:39:51 Assistant: Mocked response

@@ -77,7 +77,7 @@ class TestChatFunctions(unittest.TestCase):
         start_date = datetime(2023, 1, 1)
         end_date = datetime(2023, 12, 31)
 
-        result = get_entries_for_email(mock_db, email, start_date, end_date)
+        result, [] = get_entries_for_email(mock_db, email, start_date, end_date)
 
         self.assertEqual(result, entries_data)
 
