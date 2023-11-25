@@ -8,49 +8,8 @@ https://github.com/utsavll0/calorieApp_server/assets/122955760/54f2292f-86fa-4b4
 <br>
 
 
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
-[![DOI](https://zenodo.org/badge/692607606.svg)](https://zenodo.org/badge/latestdoi/692607606)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![Build Status](https://app.travis-ci.com/atharva1996/calorieApp_server.svg?branch=main)](https://app.travis-ci.com/atharva1996/calorieApp_server)
-[![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
-![last commit](https://img.shields.io/github/last-commit/rishi2019194/calorieApp)
-![total lines](https://img.shields.io/tokei/lines/github/rishi2019194/calorieApp)
-![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/unit_test.yml/badge.svg)
-![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/style_checker.yml/badge.svg)
-![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/syntax_checker.yml/badge.svg)
-[![codecov](https://codecov.io/gh/rishi2019194/calorieApp/branch/main/graph/badge.svg?token=IQW5PLLE22)](https://codecov.io/gh/rishi2019194/calorieApp)
-[![Running Code Coverage](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml/badge.svg)](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml)
-<!--Badges-->
-<a href="https://github.com/utsavll0/calorieApp_server/fork" target="blank">
-<img src="https://img.shields.io/github/forks/utsavll0/calorieApp_server?style=flat-square" alt="calorieApp_server forks"/>
-</a>
-<a href="https://github.com/utsavll0/calorieApp_server/stargazers" target="blank">
-<img src="https://img.shields.io/github/stars/utsavll0/calorieApp_server?style=flat-square" alt="calorieApp_server stars"/>
-</a>
-<a href="https://github.com/utsavll0/calorieApp_server/issues" target="blank">
-<img src="https://img.shields.io/github/issues/utsavll0/calorieApp_server?style=flat-square" alt="calorieApp_server issues"/>
-</a>
-<a href="https://github.com/utsavll0/calorieApp_server/issues" target="blank">
-<img src="https://img.shields.io/github/issues-closed/utsavll0/calorieApp_server" alt="calorieApp_server issues closed"/>
-</a>
-<a href="https://github.com/utsavll0/calorieApp_server/pulls" target="blank">
-<img src="https://img.shields.io/github/issues-pr/utsavll0/calorieApp_server?style=flat-square" alt="cheapBuy pull-requests"/>
-</a>
-<a href="https://github.com/utsavll0/calorieApp_server/graphs/contributors" alt="Contributors">
-<img src="https://img.shields.io/github/contributors/utsavll0/calorieApp_server" /></a>
-
-<a href="https://github.com/utsavll0/calorieApp_server/milestones" alt="milestones">
-<img src="https://img.shields.io/github/milestones/all/utsavll0/calorieApp_server" /></a> 
-
-<a href="https://github.com/utsavll0/calorieApp_server/graphs/commit-activity" alt="commit activity">
-<img src="https://img.shields.io/github/commit-activity/w/utsavll0/calorieApp_server" /></a> 
-
-<a href="https://github.com/utsavll0/calorieApp_server/discussions" alt="discussion">
-<img src="https://img.shields.io/github/discussions/utsavll0/calorieApp_server" /></a> 
-
-<a href="https://img.shields.io/github/repo-size/utsavll0/calorieApp_server" alt="repo size">
-<img src="https://img.shields.io/github/repo-size/utsavll0/calorieApp_server" /></a>
-
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://gitHub.com/rishi2019194/calorieApp/graphs/commit-activity) [![Contributors Activity](https://img.shields.io/github/commit-activity/m/rishi2019194/calorieApp)](https://github.com/rishi2019194/calorieApp/pulse) [![GitHub issues](https://img.shields.io/github/issues/rishi2019194/calorieApp.svg)](https://github.com/rishi2019194/calorieApp/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues-closed](https://img.shields.io/github/issues-closed/rishi2019194/calorieApp.svg)](https://github.com/rishi2019194/calorieApp/issues?q=is%3Aissue+is%3Aclosed) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/rishi2019194/calorieApp) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/) ![last commit](https://img.shields.io/github/last-commit/rishi2019194/calorieApp) ![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/unit_test.yml/badge.svg) ![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/style_checker.yml/badge.svg)![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/syntax_checker.yml/badge.svg)
+[![codecov](https://codecov.io/gh/rishi2019194/calorieApp/branch/main/graph/badge.svg?token=IQW5PLLE22)](https://codecov.io/gh/rishi2019194/calorieApp) [![Running Code Coverage](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml/badge.svg)](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml)[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4127507.svg)](https://doi.org/10.5281/zenodo.10023130)[![GitHub release](https://img.shields.io/github/release/rishi2019194/calorieApp.svg)](https://GitHub.com/rishi2019194/calorieAppreleases/) [![StyleCheck: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint) [![HitCount](https://hits.dwyl.com/rishi2019194/calorieApp.svg)](https://hits.dwyl.com/rishi2019194/calorieApp) ![GitHub contributors](https://img.shields.io/github/contributors/rishi2019194/calorieApp) ![GitHub repo size](https://img.shields.io/github/repo-size/rishi2019194/calorieApp)
 
 
 # BurnOut
@@ -98,10 +57,26 @@ Link to the implementation video of the BurnOut application:
 
 # TechStack Used for the Development of Project
 
- <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="python" width="20" height="20"/> Python </br>
- <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" alt="mongo" width="20" height="20"/> MongoDB </br>
- <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg" alt="html" width="20" height="20"> CSS3 </br>
- <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg" alt="css" width="20" height="20">  HTML 5 </br>
+<code><a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg"></a></code>
+<code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/w3_css/w3_css-ar21.svg"></a></code> <code><a href="https://www.javascript.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/javascript/javascript-ar21.svg"></a></code>
+<code><a href="https://www.jquery.com//" target="_blank"><img height="35" src="https://www.vectorlogo.zone/logos/jquery/jquery-horizontal.svg"></a></code>
+<code><a href="https://www.mongodb.com/" target="_blank"><img height="35" src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg"></a></code>
+<code><a href="https://getbootstrap.com/" target="_blank"><img height="35" src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-ar21.svg"></a></code>
+<code><a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg"></a></code>
+<!--<code><a href="https://github.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/github/github-ar21.svg"></a></code>
+ <code><a href="https://git-scm.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg"></a></code>
+<code><a href="https://github.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/github/github-ar21.svg"></a></code> -->
+<!-- <code><a href="https://code.visualstudio.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-ar21.svg"></a></code>
+<code><a href="https://www.python.org/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg"></a></code>-->
+<!-- <code><a href="https://www.python.org/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg"></a></code>-->
+
+<p>
+<img src="https://i.giphy.com/media/LMt9638dO8dftAjtco/200.webp" width="150"> 
+<img src="https://i.giphy.com/media/KzJkzjggfGN5Py6nkT/200.webp" width="150">
+<img src="https://i.giphy.com/media/IdyAQJVN2kVPNUrojM/200.webp" width="150"> 
+<img src="https://media.giphy.com/media/UWt0rhp21JgLwoeFQP/giphy.gif" width ="150"/> 
+<img src="https://media.giphy.com/media/kH6CqYiquZawmU1HI6/giphy.gif" width ="150"/> 
+</p>
  
  # Help by using our Software
  
