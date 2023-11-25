@@ -8,7 +8,7 @@ import re
 # from apps import App
 from flask import json
 # from utilities import Utilities
-from flask import render_template, session, url_for, flash, redirect, request, Flask
+from flask import render_template, session, url_for, flash, redirect, request, Flask, jsonify
 from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
@@ -972,6 +972,43 @@ def hrx():
         return redirect(url_for('dashboard'))
     return render_template('hrx.html', title='HRX', form=form)
 
+@app.route('/get_countries', methods=['GET'])
+def get_countries():
+    '''
+    Populate countries in the bmi_cal.html dropdown from mongodb
+    '''
+    countries = [country['country_name'] for country in mongo.db.obesity.find({}, {'country_name': 1, '_id': 0})]
+    return jsonify({'countries': countries})
+
+@app.route('/get_average_bmi', methods=['GET'])
+def get_average_bmi():
+    '''
+    Fetch the average bmi values from database
+    '''
+    country = request.args.get('country')
+    gender = request.args.get('gender')
+
+    bmi_data_for_country = list(mongo.db.obesity.find({'country_name': country}))
+
+    # Get the keys for both sexes, male, and female
+    gender_keys = ['both_sexes', 'male', 'female']
+
+    # Dictionary to store average BMI values
+    average_bmi_data = {}
+
+    # Calculate average BMI for both sexes
+    both_sexes_data = [entry[key] for entry in bmi_data_for_country for key in gender_keys if key in entry]
+    total_both_sexes = sum(both_sexes_data)
+    average_bmi_data['both_sexes'] = total_both_sexes / len(both_sexes_data)
+
+    # Calculate average BMI for the selected gender
+    if gender in gender_keys:
+        selected_gender_data = [entry[gender] for entry in bmi_data_for_country if gender in entry]
+        total_selected_gender = sum(selected_gender_data)
+        average_bmi_data[gender] = total_selected_gender / len(selected_gender_data)
+    else:
+        return jsonify({'error': 'Invalid gender parameter'}), 400
+    return jsonify(average_bmi_data)
 
 # @app.route("/ajaxdashboard", methods=['POST'])
 # def ajaxdashboard():
