@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import credentials as c
+
 import bcrypt
 import smtplib
 import re
@@ -12,10 +13,9 @@ from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
 from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm, WorkoutForm
-from service import history as history_service
 import openai
 import os
-from utilities import get_response
+import utilities as u
 import time
 
 # Set the OpenAI API key
@@ -227,36 +227,31 @@ def calories():
     route "/calories" will redirect to calories() function.
     CalorieForm() called and if the form is submitted then various values are fetched and updated into the database entries
     Input: Email, date, food, burnout
-    Output: Value update in database and redirected to home page
+    Output: Value update in database and redirected to the home page
     """
-    now = datetime.now()
-    now = now.strftime('%Y-%m-%d')
-
     get_session = session.get('email')
+    print(get_session)
     if get_session is not None:
         form = CalorieForm()
         if form.validate_on_submit():
-            if request.method == 'POST':
-                email = session.get('email')
-                food = request.form.get('food')
-                # cals = food.split(" ")
-                # print('cals is ',cals)
-                match = re.search(r'\((\d+)\)', food)
-                if match:
-                    cals = int(match.group(1))
-                else:
-                    cals = 0
-                # cals = int(cals[1][1:len(cals[1]) - 1])
-                mongo.db.calories.insert_one({
-                    'date': now,
-                    'email': email,
-                    'calories': cals
-                })
-                flash(f'Successfully updated the data', 'success')
-                return redirect(url_for('calories'))
+            email = session.get('email')
+            date = form.date.data.strftime('%Y-%m-%d')  # Get the selected date from the form
+            food = form.food.data
+            match = re.search(r'\((\d+)\)', food)
+            if match:
+                cals = int(match.group(1))
+            else:
+                cals = 0
+            mongo.db.calories.insert_one({
+                'date': date,
+                'email': email,
+                'calories': cals
+            })
+            flash('Successfully updated the data', 'success')
+            return redirect(url_for('calories'))
     else:
         return redirect(url_for('home'))
-    return render_template('calories.html', form=form, time=now)
+    return render_template('calories.html', form=form, time=datetime.now().strftime('%Y-%m-%d'))
 
 
 @app.route("/workout", methods=['GET', 'POST'])
@@ -268,20 +263,20 @@ def workout():
     if get_session is not None:
         form = WorkoutForm()
         if form.validate_on_submit():
-            if request.method == 'POST':
-                email = session.get('email')
-                burn = request.form.get('burnout')
+            email = session.get('email')
+            burnout = form.burnout.data
+            print(burnout)
+            mongo.db.workout.insert_one({
+                'date': form.date.data.strftime('%Y-%m-%d'),  # Get the selected date from the form
+                'email': email,
+                'burnout': burnout
+            })
 
-                mongo.db.calories.insert_one({
-                    'date': now,
-                    'email': email,
-                    'calories': -int(burn)
-                })
-
-                flash(f'Successfully updated the data', 'success')
-                return redirect(url_for('workout'))
+            flash('Successfully updated the data', 'success')
+            return redirect(url_for('workout'))
     else:
         return redirect(url_for('home'))
+    
     return render_template('workout.html', form=form, time=now)
 
 
@@ -299,39 +294,70 @@ def history():
         form = HistoryForm()
 
     # Find out the last 7 day's calories burnt by the user
-    labels = []
-    values = []
-    pipeline = history_service.get_calories_per_day_pipeline(7)
-    filtered_calories = mongo.db.calories.aggregate(pipeline)
-    for calorie_each_day in filtered_calories:
-        if calorie_each_day['_id'] == 'Other':
+    calorie_day_map = {}
+    entries_cal, entries_workout = u.get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
+    # print(entries)
+    for entry in entries_cal:
+        if entry['_id'] == 'Other':
             continue
-        net_calories = int(calorie_each_day['total_calories']) - 2000
-        labels.append(calorie_each_day['date'])
-        values.append(str(net_calories))
+        net_calories = int(entry['calories'])
+        curr_date = entry['date']
+        if(curr_date not in calorie_day_map):
+            calorie_day_map[curr_date] = net_calories
+        else:
+            calorie_day_map[curr_date] += net_calories
+
+    for entry in entries_workout:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = -int(entry['burnout'])
+        curr_date = entry['date']
+        if(curr_date not in calorie_day_map):
+            calorie_day_map[curr_date] = net_calories
+        else:
+            calorie_day_map[curr_date] += net_calories
+    calorie_day_map = dict(sorted(calorie_day_map.items()))
+    
+    labels = list(calorie_day_map.keys())
+    values = list(calorie_day_map.values())
+    for i in range(len(values)):
+        values[i] = str(values[i])
 
     # The first day when the user registered or started using the app
     user_start_date = mongo.db.user.find({'email': email})[0]['start_date']
     user_target_date = mongo.db.user.find({'email': email})[0]['target_date']
     target_weight = mongo.db.user.find({'email': email})[0]['target_weight']
     current_weight = mongo.db.user.find({'email': email})[0]['weight']
+    print(current_weight, target_weight, type(user_start_date), datetime.today().strftime('%Y-%m-%d'))
 
     # Find out the actual calories which user needed to burn/gain to achieve goal from the start day
-    target_calories_to_burn = history_service.total_calories_to_burn(
+    target_calories_to_burn = u.total_calories_to_burn(
         target_weight=int(target_weight), current_weight=int(current_weight))
     print(f'########## {target_calories_to_burn}')
 
     # Find out how many calories user has gained or burnt uptill now
-    calories_till_today = mongo.db.calories.aggregate(
-        history_service.get_calories_burnt_till_now_pipeline(
-            email, user_start_date))
+    query = {
+        'email': email,
+        'date': {'$gte': user_start_date, '$lte': datetime.today().strftime('%Y-%m-%d')}
+    }
+
+    entries_till_today_cal = mongo.db.calories.find(query)
+    entries_till_today_workout = mongo.db.workout.find(query)
     current_calories = 0
-    for calorie in calories_till_today:
-        current_calories += calorie['SUM']
-    # current_calories = [x for x in calories_till_today][0]['SUM'] if len(list(calories_till_today)) != 0 else 0
+    for entry in entries_till_today_cal:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = int(entry['calories'])
+        current_calories += net_calories
+
+    for entry in entries_till_today_workout:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = -int(entry['burnout'])
+        current_calories += net_calories
 
     # Find out no of calories user has to burn/gain in future per day
-    calories_to_burn = history_service.calories_to_burn(
+    calories_to_burn = u.calories_to_burn(
         target_calories_to_burn,
         current_calories,
         target_date=datetime.strptime(user_target_date, '%Y-%m-%d'),
@@ -447,8 +473,8 @@ def bmi_calci():
     if request.method == 'POST' and 'weight' in request.form:
         weight = float(request.form.get('weight'))
         height = float(request.form.get('height'))
-        bmi = calc_bmi(weight, height)
-        bmi_category = get_bmi_category(bmi)
+        bmi = u.calc_bmi(weight, height)
+        bmi_category = u.get_bmi_category(bmi)
 
     return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
 
@@ -463,7 +489,7 @@ def chatbot():
 def get_bot_response():
     userText = request.args.get('msg')
     return str(
-        get_response(chat_history, name, chatgpt_output, userText,
+        u.get_response(chat_history, name, chatgpt_output, userText,
                      history_file, impersonated_role, explicit_input))
 
 
@@ -471,22 +497,6 @@ def get_bot_response():
 def refresh():
     time.sleep(600)  # Wait for 10 minutes
     return redirect('/refresh')
-
-
-def calc_bmi(weight, height):
-    return round((weight / ((height / 100)**2)), 2)
-
-
-def get_bmi_category(bmi):
-    if bmi < 18.5:
-        return 'Underweight'
-    elif bmi < 24.9:
-        return 'Normal Weight'
-    elif bmi < 29.9:
-        return 'Overweight'
-    else:
-        return 'Obese'
-
 
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():

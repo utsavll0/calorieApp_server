@@ -4,35 +4,34 @@ from flask_mail import Message
 from apps import App
 import string
 
-
-class Utilities:
-    app = App()
-    mail = app.mail
-    mongo = app.mongo
-
-    def send_email(self, email):
-        msg = Message()
-        msg.subject = "BURNOUT - Reset Password Request"
-        msg.sender = 'bogusdummy123@gmail.com'
-        msg.recipients = [email]
-        random = str(self.get_random_string(8))
-        msg.body = 'Please use the following password to login to your account: ' + random
-        self.mongo.db.ath.update({'email': email}, {'$set': {'temp': random}})
-        if self.mail.send(msg):
-            return "success"
-        else:
-            return "failed"
-
-    def get_random_string(self, length):
-        # choose from all lowercase letter
-        letters = string.ascii_lowercase
-        result_str = ''.join(random.choice(letters) for i in range(length))
-        print("Random string of length", length, "is:", result_str)
-        return result_str
-
-
 import openai
 import time
+from datetime import datetime
+
+# class Utilities:
+#     app = App()
+#     mail = app.mail
+#     mongo = app.mongo
+
+#     def send_email(self, email):
+#         msg = Message()
+#         msg.subject = "BURNOUT - Reset Password Request"
+#         msg.sender = 'bogusdummy123@gmail.com'
+#         msg.recipients = [email]
+#         random = str(self.get_random_string(8))
+#         msg.body = 'Please use the following password to login to your account: ' + random
+#         self.mongo.db.ath.update({'email': email}, {'$set': {'temp': random}})
+#         if self.mail.send(msg):
+#             return "success"
+#         else:
+#             return "failed"
+
+#     def get_random_string(self, length):
+#         # choose from all lowercase letter
+#         letters = string.ascii_lowercase
+#         result_str = ''.join(random.choice(letters) for i in range(length))
+#         print("Random string of length", length, "is:", result_str)
+#         return result_str
 
 
 # Function to complete chat input using OpenAI's GPT-3.5 Turbo
@@ -87,3 +86,46 @@ def get_response(chat_history, name, chatgpt_output, userText, history_file,
                  impersonated_role, explicit_input):
     return chat(chat_history, name, chatgpt_output, userText, history_file,
                 impersonated_role, explicit_input)
+
+
+def calc_bmi(weight, height):
+    return round((weight / ((height / 100)**2)), 2)
+
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif bmi < 24.9:
+        return 'Normal Weight'
+    elif bmi < 29.9:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
+def get_entries_for_email(db, email, start_date, end_date):
+
+    # Query to find entries for a given email within the date range
+    query = {
+        'email': email,
+        'date': {'$gte': start_date, '$lte': end_date}
+    }
+
+    # Fetch entries from MongoDB
+    entries_cal = db.calories.find(query)
+    entries_workout = db.workout.find(query)
+
+    return list(entries_cal), list(entries_workout)
+
+def total_calories_to_burn(target_weight: int, current_weight: int):
+    return int((target_weight - current_weight) * 7700)
+
+
+def calories_to_burn(target_calories: int, current_calories: int,
+                     target_date: datetime, start_date: datetime):
+    actual_current_calories = current_calories - (
+        (datetime.today() - start_date).days * 2000)
+
+    new_target = target_calories - actual_current_calories
+
+    days_remaining = (target_date - datetime.today()).days
+    return int(new_target / days_remaining)

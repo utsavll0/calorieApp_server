@@ -51,20 +51,7 @@ class WorkoutForm(FlaskForm):
     app = App()
     mongo = app.mongo
 
-    # cursor = mongo.db.food.find()
-    # get_docs = []
-    # for record in cursor:
-    #     get_docs.append(record)
-
-    # result = []
-    # temp = ""
-    # for i in get_docs:
-    #     temp = i['food'] + ' (' + i['calories'] + ')'
-    #     result.append((temp, temp))
-
-    # food = SelectField(
-    #     'Select Food', choices=result)
-
+    date = DateField('Date', validators=[DataRequired()])  # Add DateField
     burnout = StringField('Burn Out', validators=[DataRequired()])
     submit = SubmitField('Save')
 
@@ -85,6 +72,7 @@ class CalorieForm(FlaskForm):
         result.append((temp, temp))
 
     food = SelectField('Select Food', choices=result)
+    date = DateField('Date')
 
     submit = SubmitField('Save')
 

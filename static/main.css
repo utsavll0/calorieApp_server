@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 .nav-color{
     background: #d8b26e;
     font-family: Verdana, sans-serif;
@@ -25,7 +34,7 @@
   .bg-steel {
       background-color: #5f788a;
   }
-    
+
     .site-header .navbar-nav .nav-link {
       color: #cbd5db;
     }
@@ -37,10 +46,10 @@
     .site-header .navbar-nav .nav-link.active {
       font-weight: 500;
     }
-    
+
     .content-section {
       background: #ffffff;
-      padding: 10px 20px;
+      padding: 10px 30px;
       border: 1px solid #dddddd;
       border-radius: 3px;
       width: 50%;
@@ -52,18 +61,9 @@
 
     .sign-in-div {
       display: flex;
-      width: 50%;
-      margin: auto;
-    }
-    .login-img-div {
-      z-index: -999;
-      display: block;
-      position: absolute;
-      top: 25px;
-    }
-    .login-img {
-      width: 653px;
-      padding: unset;
+      align-items: center;
+      justify-content: center;
+      height: 105vh;
     }
     
     .account-img {
@@ -83,12 +83,12 @@
     }
   
     .side-bar{
-      margin-top: 20px;
+      margin-top: 10px;
       color: #99979c;
     }
   
     .side-bar-li{
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .side-bar-link{
@@ -128,7 +128,7 @@
     
     .site-section {
       text-align: center;
-      padding: 60px 0;
+      padding: 30px 0;
     }
     
     .site-section {
