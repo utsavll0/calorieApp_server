@@ -266,7 +266,7 @@ def workout():
         if form.validate_on_submit():
             email = session.get('email')
             burnout = form.burnout.data
-
+            print(burnout)
             mongo.db.workout.insert_one({
                 'date': form.date.data.strftime('%Y-%m-%d'),  # Get the selected date from the form
                 'email': email,
@@ -296,28 +296,42 @@ def history():
 
     # Find out the last 7 day's calories burnt by the user
     calorie_day_map = {}
-    entries = get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
-    for entry in entries:
+    entries_cal, entries_workout = get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
+    # print(entries)
+    for entry in entries_cal:
         if entry['_id'] == 'Other':
             continue
-        net_calories = int(entry['calories'])-2000
+        net_calories = int(entry['calories'])
         curr_date = entry['date']
         if(curr_date not in calorie_day_map):
             calorie_day_map[curr_date] = net_calories
         else:
             calorie_day_map[curr_date] += net_calories
+
+    for entry in entries_workout:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = -int(entry['burnout'])
+        curr_date = entry['date']
+        if(curr_date not in calorie_day_map):
+            calorie_day_map[curr_date] = net_calories
+        else:
+            calorie_day_map[curr_date] += net_calories
+    calorie_day_map = dict(sorted(calorie_day_map.items()))
+    print(calorie_day_map)
     
     labels = list(calorie_day_map.keys())
     values = list(calorie_day_map.values())
     for i in range(len(values)):
         values[i] = str(values[i])
-    
+    print(labels, values)
 
     # The first day when the user registered or started using the app
     user_start_date = mongo.db.user.find({'email': email})[0]['start_date']
     user_target_date = mongo.db.user.find({'email': email})[0]['target_date']
     target_weight = mongo.db.user.find({'email': email})[0]['target_weight']
     current_weight = mongo.db.user.find({'email': email})[0]['weight']
+    print(current_weight, target_weight, type(user_start_date), datetime.today().strftime('%Y-%m-%d'))
 
     # Find out the actual calories which user needed to burn/gain to achieve goal from the start day
     target_calories_to_burn = history_service.total_calories_to_burn(
@@ -325,13 +339,25 @@ def history():
     print(f'########## {target_calories_to_burn}')
 
     # Find out how many calories user has gained or burnt uptill now
-    calories_till_today = mongo.db.calories.aggregate(
-        history_service.get_calories_burnt_till_now_pipeline(
-            email, user_start_date))
+    query = {
+        'email': email,
+        'date': {'$gte': user_start_date, '$lte': datetime.today().strftime('%Y-%m-%d')}
+    }
+
+    entries_till_today_cal = mongo.db.calories.find(query)
+    entries_till_today_workout = mongo.db.workout.find(query)
     current_calories = 0
-    for calorie in calories_till_today:
-        current_calories += calorie['SUM']
-    # current_calories = [x for x in calories_till_today][0]['SUM'] if len(list(calories_till_today)) != 0 else 0
+    for entry in entries_till_today_cal:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = int(entry['calories'])
+        current_calories += net_calories
+
+    for entry in entries_till_today_workout:
+        if entry['_id'] == 'Other':
+            continue
+        net_calories = -int(entry['burnout'])
+        current_calories += net_calories
 
     # Find out no of calories user has to burn/gain in future per day
     calories_to_burn = history_service.calories_to_burn(

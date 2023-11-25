@@ -96,9 +96,13 @@ def get_entries_for_email(db, email, start_date, end_date):
     }
 
     # Fetch entries from MongoDB
-    entries = db.calories.find(query)
+    entries_cal = db.calories.find(query)
+    entries_workout = db.workout.find(query)
 
-    return list(entries)
+    return list(entries_cal), list(entries_workout)
+
+def total_calories_to_burn(target_weight: int, current_weight: int):
+    return int((target_weight - current_weight) * 7700)
 
 def calc_bmi(weight, height):
     return round((weight / ((height / 100)**2)), 2)
