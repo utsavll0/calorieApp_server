@@ -469,6 +469,14 @@ def bmi_calci():
 
     return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
 
+@app.route('/plans', methods=['GET', 'POST'])
+def plans():
+
+    if(session.get('email')):
+        email = get_session = session.get('email')
+        enrolled_plans = list(mongo.db.plans.find({'Email': email}))
+    return render_template("plans.html",enrolled_plans=enrolled_plans)
+
 
 @app.route('/chatbot', methods=['GET', 'POST'])
 def chatbot():
@@ -677,10 +685,11 @@ def yoga():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "yoga"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -702,10 +711,11 @@ def swim():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "swimming"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -727,10 +737,11 @@ def abbs():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "abbs"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
     else:
         return redirect(url_for('dashboard'))
     return render_template('abbs.html', title='Abbs Smash!', form=form)
@@ -751,10 +762,11 @@ def belly():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "belly"
-                mongo.db.user.insertOne({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -776,10 +788,11 @@ def core():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "core"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
     else:
         return redirect(url_for('dashboard'))
     return render_template('core.html', title='Core Conditioning', form=form)
@@ -800,10 +813,11 @@ def gym():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "gym"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -825,10 +839,11 @@ def walk():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "walk"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -850,10 +865,11 @@ def dance():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "dance"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -875,10 +891,11 @@ def hrx():
         if form.validate_on_submit():
             if request.method == 'POST':
                 enroll = "hrx"
-                mongo.db.user.insert_one({'Email': email, 'Status': enroll})
+                mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
+            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form)
+            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
