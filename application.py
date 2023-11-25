@@ -473,8 +473,8 @@ def bmi_calci():
     if request.method == 'POST' and 'weight' in request.form:
         weight = float(request.form.get('weight'))
         height = float(request.form.get('height'))
-        bmi = calc_bmi(weight, height)
-        bmi_category = get_bmi_category(bmi)
+        bmi = u.calc_bmi(weight, height)
+        bmi_category = u.get_bmi_category(bmi)
 
     return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
 
