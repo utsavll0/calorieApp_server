@@ -12,6 +12,8 @@ from flask import render_template, session, url_for, flash, redirect, request, F
 from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm, WorkoutForm
 from service import history as history_service
 import openai
@@ -484,13 +486,22 @@ def send_email():
     # Output: Calorie History Received on specified email
     # ##########################
     email = session.get('email')
-    data = list(
-        mongo.db.calories.find({'email': email},
-                               {'date', 'email', 'calories'}))
-    print(data)
+    data = list(mongo.db.calories.find({'email': email}, {'date', 'email', 'calories'}))
+    workout_data = list(mongo.db.workout.find({'email': email}, {'date', 'email', 'burnout'}))
+    print(data, workout_data)
+
+    one_week_ago = datetime.now() - timedelta(days=7)
+
+    filtered_data = [a for a in data if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago]
+    filtered_workout_data = [a for a in workout_data if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago]
+
     table = [['Date', 'Email ID', 'Calories']]
-    for a in data:
+
+    for a in filtered_data:
         tmp = [a['date'], a['email'], a['calories']]
+        table.append(tmp)
+    for a in filtered_workout_data:
+        tmp = [a['date'], a['email'], int(a['burnout'])*(-1)]
         table.append(tmp)
 
     friend_email = str(request.form.get('share')).strip()
@@ -499,14 +510,72 @@ def send_email():
     #Storing sender's email address and password
     sender_email = "calorieapp508@gmail.com"
     sender_password = c.email_password
+    sharing_email = table[1][1]
+
+    positive_calories = [row for row in table[1:] if int(row[2]) > 0]
+    negative_calories = [row for row in table[1:] if int(row[2]) < 0]
+
+    net_calories = sum(int(row[2]) for row in table[1:])
+
+    html_table = """
+        <html>
+        <head></head>
+        <body>
+            <p>Your friend with email {} wants to share their past week's calorie history with you!</p>
+    
+            <!-- Positive Calories Table -->
+            <h3>Calories Gained</h3>
+            <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%; max-width: 600px;">
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Date</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Calories</th>
+            </tr>
+            {}
+            </table>
+            
+            <!-- Negative Calories Table -->
+            <h3>Calories Lost</h3>
+            <table style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%; max-width: 600px;">
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Date</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Calories</th>
+            </tr>
+            {}
+            </table>
+
+            <!-- Net Calories -->
+            <h3>Net Calories: {}</h3>
+        </body>
+        </html>
+    """
+
+    positive_rows = ""
+    for row in positive_calories:
+        positive_rows += "<tr>"
+        for item in [row[0]] + [row[2]]:
+            positive_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(item)
+        positive_rows += "</tr>"
+
+    negative_rows = ""
+    for row in negative_calories:
+        negative_rows += "<tr>"
+        for item in [row[0]] + [row[2]]:
+            negative_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(item)
+        negative_rows += "</tr>"
+
+    formatted_html = html_table.format(sharing_email, positive_rows, negative_rows, net_calories)
 
     #Logging in with sender details
     server.login(sender_email, sender_password)
-    message = 'Subject: Calorie History\n\n Your Friend wants to share their calorie history with you!\n {}'.format(
-        tabulate(table))
+    message = MIMEMultipart()
+    message["Subject"] = "Calorie History"
+    message["From"] = sender_email
+
+    html_content = MIMEText(formatted_html, "html")
+    message.attach(html_content)
     for e in friend_email:
         print(e)
-        server.sendmail(sender_email, e, message)
+        server.sendmail(sender_email, e, message.as_string())
 
     server.quit()
 
