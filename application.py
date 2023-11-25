@@ -13,10 +13,9 @@ from flask_mail import Mail
 from flask_pymongo import PyMongo
 from tabulate import tabulate
 from forms import HistoryForm, RegistrationForm, LoginForm, CalorieForm, UserProfileForm, EnrollForm, WorkoutForm
-from service import history as history_service
 import openai
 import os
-from utilities import *
+import utilities as u
 import time
 
 # Set the OpenAI API key
@@ -296,7 +295,7 @@ def history():
 
     # Find out the last 7 day's calories burnt by the user
     calorie_day_map = {}
-    entries_cal, entries_workout = get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
+    entries_cal, entries_workout = u.get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
     # print(entries)
     for entry in entries_cal:
         if entry['_id'] == 'Other':
@@ -318,13 +317,11 @@ def history():
         else:
             calorie_day_map[curr_date] += net_calories
     calorie_day_map = dict(sorted(calorie_day_map.items()))
-    print(calorie_day_map)
     
     labels = list(calorie_day_map.keys())
     values = list(calorie_day_map.values())
     for i in range(len(values)):
         values[i] = str(values[i])
-    print(labels, values)
 
     # The first day when the user registered or started using the app
     user_start_date = mongo.db.user.find({'email': email})[0]['start_date']
@@ -334,7 +331,7 @@ def history():
     print(current_weight, target_weight, type(user_start_date), datetime.today().strftime('%Y-%m-%d'))
 
     # Find out the actual calories which user needed to burn/gain to achieve goal from the start day
-    target_calories_to_burn = history_service.total_calories_to_burn(
+    target_calories_to_burn = u.total_calories_to_burn(
         target_weight=int(target_weight), current_weight=int(current_weight))
     print(f'########## {target_calories_to_burn}')
 
@@ -360,7 +357,7 @@ def history():
         current_calories += net_calories
 
     # Find out no of calories user has to burn/gain in future per day
-    calories_to_burn = history_service.calories_to_burn(
+    calories_to_burn = u.calories_to_burn(
         target_calories_to_burn,
         current_calories,
         target_date=datetime.strptime(user_target_date, '%Y-%m-%d'),
@@ -492,7 +489,7 @@ def chatbot():
 def get_bot_response():
     userText = request.args.get('msg')
     return str(
-        get_response(chat_history, name, chatgpt_output, userText,
+        u.get_response(chat_history, name, chatgpt_output, userText,
                      history_file, impersonated_role, explicit_input))
 
 

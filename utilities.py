@@ -87,6 +87,21 @@ def get_response(chat_history, name, chatgpt_output, userText, history_file,
     return chat(chat_history, name, chatgpt_output, userText, history_file,
                 impersonated_role, explicit_input)
 
+
+def calc_bmi(weight, height):
+    return round((weight / ((height / 100)**2)), 2)
+
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif bmi < 24.9:
+        return 'Normal Weight'
+    elif bmi < 29.9:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
 def get_entries_for_email(db, email, start_date, end_date):
 
     # Query to find entries for a given email within the date range
@@ -104,16 +119,13 @@ def get_entries_for_email(db, email, start_date, end_date):
 def total_calories_to_burn(target_weight: int, current_weight: int):
     return int((target_weight - current_weight) * 7700)
 
-def calc_bmi(weight, height):
-    return round((weight / ((height / 100)**2)), 2)
 
+def calories_to_burn(target_calories: int, current_calories: int,
+                     target_date: datetime, start_date: datetime):
+    actual_current_calories = current_calories - (
+        (datetime.today() - start_date).days * 2000)
 
-def get_bmi_category(bmi):
-    if bmi < 18.5:
-        return 'Underweight'
-    elif bmi < 24.9:
-        return 'Normal Weight'
-    elif bmi < 29.9:
-        return 'Overweight'
-    else:
-        return 'Obese'
+    new_target = target_calories - actual_current_calories
+
+    days_remaining = (target_date - datetime.today()).days
+    return int(new_target / days_remaining)
