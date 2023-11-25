@@ -52,15 +52,14 @@
       padding: 10px 30px;
       border: 1px solid #dddddd;
       border-radius: 3px;
-      margin-top: 40px;
-      margin-bottom: 20px;
-      width: 55%;
-      align-self: center;
-      box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
+      width: 50%;
+      margin: auto;
+      border-radius: 1%;
+      box-shadow: 10px 10px 5px lightblue;
     }
 
-    .content-section-container {
-      margin-top: -1.5rem;
+
+    .sign-in-div {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -125,6 +124,7 @@
     details[open] summary {
         margin-bottom: .5em;
     }
+  
     
     .site-section {
       text-align: center;
@@ -140,14 +140,6 @@
       font-weight: normal;
       margin-bottom: 30px;
       text-align: center;
-    }
-    h1 {
-      text-align: center;
-    }
-    
-    img {
-      text-align: center;
-      padding: 0 350px;
     }
     
     .carousel-fade .carousel-item, .carousel-item img  {
@@ -169,299 +161,345 @@
       justify-content: center;
     }
 
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-  }
-  
-  .content {
-    padding: 0 30px;
-  }
-  
-  .input {
-    background: #fff;
-    box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    padding: 7px 0;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .input label {
-    display: block;
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 7px;
-  }
-  
-  .input input {
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #4f7df9;
-    width: 35%;
-    text-align: center;
-    font-size: 18px;
-    font-family: "Nunito", sans-serif;
-  }
-  
-  .inputW {
-    background: #fff;
-    box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    padding: 10px 0;
-    margin-bottom: 20px;
-  }
-  
-  .inputW label {
-    display: block;
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .inputW input {
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #4f7df9;
-    width: 90%;
-    text-align: center;
-    font-size: 18px;
-    font-family: "Nunito", sans-serif;
-  }
-  
-  .inputH {
-    background: #fff;
-    box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    padding: 10px 0;
-    margin-bottom: 20px;
-    margin-right: 20px;
-  }
-  
-  .inputH label {
-    display: block;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    color: #000;
-    margin-bottom: 20px;
-  }
-  
-  .inputH input {
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #4f7df9;
-    width: 90%;
-    text-align: center;
-    font-size: 18px;
-    font-family: "Nunito", sans-serif;
-  }
-  
-  button.calculate {
-    cursor: pointer;
-    font-family: "Nunito", sans-serif;
-    color: #fff;
-    background: rgb(97, 138, 254, 1);
-    font-size: 16px;
-    border-radius: 7px;
-    padding: 12px 0;
-    width: 100%;
-    outline: none;
-    border: none;
-    transition: all 0.5s;
-  }
-  
-  button.calculate:hover {
-    background: #0044ff;
-  }
-  
-  .result {
-    padding: 10px 20px;
-    text-align: center;
-  }
-  
-  .result p {
-    font-weight: 600;
-    font-size: 20px;
-    color: #000;
-    margin-bottom: 15px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    text-align: center;
-  }
-  
-  .result #resultValue {
-    font-size: 25px;
-    font-weight: 900;
-    color: #4f7df9;
-    background-color: #eaeaea;
-    display: inline-block;
-    padding: 7px 20px;
-    border-radius: 55px;
-    margin-bottom: 25px;
-    text-align: center;
-  }
-  
-  #comment {
-    color: #4f7df9;
-    font-weight: 800;
-  }
-  
-  .comment {
-    display: none;
-    border: dashed 1px;
-    border-radius: 7px;
-    padding: 5px;
-  }
-  
-  .footer {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 10px 15px;
-  }
-  
-  .footer-text {
-    text-decoration: none;
-    color: rgba(40, 40, 40, 0.8);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 200;
-    font-size: 14px;
-    transition: all 0.5;
-  }
-  
-  .footer-text:hover {
-    color: rgba(40, 40, 40, 1);
-  }
-  
-  .gender {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    background: #fff;
-    box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-  }
-  
-  .gender .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-top: 2rem;
-    cursor: pointer;
-    font-size: 18px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  .gender .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-  }
-  
-  .gender .container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  .gender .container input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  .gender .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  .gender .container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-  }
-  
-  .containerHW {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 300px;
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 600px;
-    border-radius: 10px;
-    box-shadow: #393c76 -1px 2px 2px 1px;
-  }
-  
-  #modalText {
-    padding-top: 8px;
-    padding-right: 5px;
-    font-size: 18px;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(24, 23, 23);
-  }
-  
-  .modal-wrong {
-    border: 2px solid red;
-  }
-  
-  .modal-correct {
-    border: 2px solid green;
-  }
-  
-  .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .close:hover {
-    color: #d41111;
-  }
+
+
+    #textInput {
+      border: 2px solid black;
+      border-bottom: 3px solid aqua;
+    }
+
+    .userText {
+      color: white;
+      font-family: monospace;
+      font-size: 17px;
+      text-align: right;
+      line-height: 30px;
+    }
+
+    .userText span {
+      background-color: #009688;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .botText {
+      color: white;
+      font-family: monospace;
+      font-size: 17px;
+      text-align: left;
+      line-height: 30px;
+    }
+
+    .botText span {
+      background-color: #ae312f;
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+    .chat_window {
+      position: relative;
+      width: calc(100% - 20px);
+      max-width: 800px;
+      height: 500px;
+      border-radius: 10px;
+      background-color: #fff;
+      left: 50%;
+      margin-top: 20rem;
+      transform: translateX(-50%) translateY(-50%);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+
+
+    .top_menu {
+      background-color: #fff;
+      width: 100%;
+      padding: 20px 0 15px;
+      box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .top_menu .buttons {
+      margin: 3px 0 0 20px;
+      position: absolute;
+    }
+
+    .top_menu .buttons .button {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    .top_menu .buttons .button.close {
+      background-color: #f5886e;
+    }
+
+    .top_menu .buttons .button.minimize {
+      background-color: #fdbf68;
+    }
+
+    .top_menu .buttons .button.maximize {
+      background-color: #a3d063;
+    }
+
+    .top_menu .title {
+      text-align: center;
+      color: #bcbdc0;
+      font-size: 20px;
+    }
+
+    .messages {
+      position: relative;
+      list-style: none;
+      padding: 20px 10px 0 10px;
+      margin: 0;
+      height: 347px;
+      overflow: scroll;
+    }
+
+    .messages .message {
+      clear: both;
+      overflow: hidden;
+      margin-bottom: 20px;
+      transition: all 0.5s linear;
+      opacity: 0;
+    }
+
+    .messages .message.left .avatar {
+      background-color: #f5886e;
+      float: left;
+    }
+
+    .messages .message.left .text_wrapper {
+      background-color: #ffe6cb;
+      margin-left: 20px;
+    }
+
+    .messages .message.left .text_wrapper::after,
+    .messages .message.left .text_wrapper::before {
+      right: 100%;
+      border-right-color: #ffe6cb;
+    }
+
+    .messages .message.left .text {
+      color: #c48843;
+    }
+
+    .messages .message.left .avatar {
+      float: left;
+      width: 50px;
+      height: 50px;
+      background-image: url("https://pas-wordpress-media.s3.amazonaws.com/wp-content/uploads/2013/08/Customer-service-woman-on-headset-gives-OK-1024x770.jpg");
+      background-size: cover;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .messages .message.right .text_wrapper {
+      background-color: #c7eafc;
+      margin-right: 20px;
+      float: right;
+    }
+
+    .messages .message.right .text_wrapper::after,
+    .messages .message.right .text_wrapper::before {
+      left: 100%;
+      border-left-color: #c7eafc;
+    }
+
+    .messages .message.right .text {
+      color: #45829b;
+    }
+
+    .messages .message.appeared {
+      opacity: 1;
+    }
+
+    .messages .message .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .messages .message .text_wrapper {
+      display: inline-block;
+      padding: 20px;
+      border-radius: 6px;
+      width: calc(100% - 85px);
+      min-width: 100px;
+      position: relative;
+    }
+
+    .messages .message .text_wrapper::after,
+    .messages .message .text_wrapper:before {
+      top: 18px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .messages .message .text_wrapper::after {
+      border-width: 13px;
+      margin-top: 0px;
+    }
+
+    .messages .message .text_wrapper::before {
+      border-width: 15px;
+      margin-top: -2px;
+    }
+
+    .messages .message .text_wrapper .text {
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .bottom_wrapper {
+      position: relative;
+      width: 100%;
+      background-color: #fff;
+      padding: 20px 20px;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .bottom_wrapper .message_input_wrapper {
+      display: inline-block;
+      height: 50px;
+      border-radius: 25px;
+      border: 1px solid #bcbdc0;
+      width: calc(100% - 160px);
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .bottom_wrapper .message_input_wrapper .message_input {
+      border: none;
+      height: 100%;
+      box-sizing: border-box;
+      width: calc(100% - 40px);
+      position: absolute;
+      outline-width: 0;
+      color: gray;
+    }
+
+    .bottom_wrapper .send_message {
+      width: 140px;
+      height: 50px;
+      display: inline-block;
+      border-radius: 50px;
+      background-color: #a3d063;
+      border: 2px solid #a3d063;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s linear;
+      text-align: center;
+      float: right;
+    }
+
+    .bottom_wrapper .send_message:hover {
+      color: #a3d063;
+      background-color: #fff;
+    }
+
+    .bottom_wrapper .send_message .text {
+      font-size: 18px;
+      font-weight: 300;
+      display: inline-block;
+      line-height: 48px;
+    }
+
+    .message_template {
+      display: none;
+    }
+
+    .footer #button {
+      width: 55px;
+      height: 55px;
+      border: #4e919c 12px solid;
+      border-radius: 35px;
+      margin: 0 auto;
+      position: relative;
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      transition: all 1s ease;
+    }
+
+    .footer #button:hover {
+      width: 55px;
+      height: 55px;
+      border: #3A3A3A 12px solid;
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      transition: all 1s ease;
+      position: relative;
+    }
+
+    .footer {
+      bottom: 0;
+      left: 0;
+      position: fixed;
+      width: 100%;
+      height: 2em;
+      overflow: hidden;
+      margin: 0 auto;
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      transition: all 1s ease;
+      z-index: 999;
+    }
+
+    .footer:hover {
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      transition: all 1s ease;
+      height: 10em;
+    }
+
+    .footer #container {
+      margin-top: 5px;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+      background: #4e919c;
+    }
+
+    .footer #cont {
+      position: relative;
+      top: -45px;
+      right: 190px;
+      width: 150px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .footer_center {
+      width: 500px;
+      float: left;
+      text-align: center;
+    }
+
+    .footer h3 {
+      font-family: 'Arial';
+      font-size: 20px;
+      font-weight: 100;
+      margin-top: 70px;
+      margin-left: 10px;
+    }
