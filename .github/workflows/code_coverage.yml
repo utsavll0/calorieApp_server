@@ -23,7 +23,7 @@ jobs:
       - name: Run the tests
         run: |
           cd tests
-          coverage run --source=test -m pytest test_*.py
+          coverage run --source=tests -m pytest test_*.py
           coverage xml -i
       - name: Upload coverage report to Codecov
         run: |
