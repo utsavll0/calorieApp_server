@@ -23,6 +23,42 @@
   }
 
 
+  .legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    margin-left: 10rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    
+  }
+  
+  .legend div {
+    display: flex;
+    align-items: center;
+  }
+
+  .legend label {
+    margin-bottom: 0px;
+  }
+  
+  .legend span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  #calories-burnt {
+    background-color: rgba(220,20,60,0.91);
+  }
+  
+  #calories-consumed {
+    background-color: #84d320;
+  }
+
   footer {
     margin-top: auto;
   }
@@ -57,6 +93,13 @@
       width: 55%;
       align-self: center;
       box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sign-in-div {
+      width: 55%;
+      margin: auto;
     }
 
     .content-section-container {
