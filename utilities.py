@@ -87,18 +87,6 @@ def get_response(chat_history, name, chatgpt_output, userText, history_file,
     return chat(chat_history, name, chatgpt_output, userText, history_file,
                 impersonated_role, explicit_input)
 
-def get_entries_for_email(db, email, start_date, end_date):
-
-    # Query to find entries for a given email within the date range
-    query = {
-        'email': email,
-        'date': {'$gte': start_date, '$lte': end_date}
-    }
-
-    # Fetch entries from MongoDB
-    entries = db.calories.find(query)
-
-    return list(entries)
 
 def calc_bmi(weight, height):
     return round((weight / ((height / 100)**2)), 2)
@@ -113,3 +101,31 @@ def get_bmi_category(bmi):
         return 'Overweight'
     else:
         return 'Obese'
+
+def get_entries_for_email(db, email, start_date, end_date):
+
+    # Query to find entries for a given email within the date range
+    query = {
+        'email': email,
+        'date': {'$gte': start_date, '$lte': end_date}
+    }
+
+    # Fetch entries from MongoDB
+    entries_cal = db.calories.find(query)
+    entries_workout = db.workout.find(query)
+
+    return list(entries_cal), list(entries_workout)
+
+def total_calories_to_burn(target_weight: int, current_weight: int):
+    return int((target_weight - current_weight) * 7700)
+
+
+def calories_to_burn(target_calories: int, current_calories: int,
+                     target_date: datetime, start_date: datetime):
+    actual_current_calories = current_calories - (
+        (datetime.today() - start_date).days * 2000)
+
+    new_target = target_calories - actual_current_calories
+
+    days_remaining = (target_date - datetime.today()).days
+    return int(new_target / days_remaining)
