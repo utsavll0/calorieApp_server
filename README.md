@@ -19,6 +19,7 @@ https://github.com/utsavll0/calorieApp_server/assets/122955760/54f2292f-86fa-4b4
 ![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/style_checker.yml/badge.svg)
 ![github workflow](https://github.com/rishi2019194/calorieApp/actions/workflows/syntax_checker.yml/badge.svg)
 [![codecov](https://codecov.io/gh/rishi2019194/calorieApp/branch/main/graph/badge.svg?token=IQW5PLLE22)](https://codecov.io/gh/rishi2019194/calorieApp)
+[![Running Code Coverage](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml/badge.svg)](https://github.com/rishi2019194/calorieApp/actions/workflows/code_cov.yml)
 <!--Badges-->
 <a href="https://github.com/utsavll0/calorieApp_server/fork" target="blank">
 <img src="https://img.shields.io/github/forks/utsavll0/calorieApp_server?style=flat-square" alt="calorieApp_server forks"/>
