@@ -502,12 +502,12 @@ def refresh():
 
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():
-    # ############################
-    # send_email() function shares Calorie History with friend's email
-    # route "/send_email" will redirect to send_email() function which redirects to friends.html page.
-    # Input: Email
-    # Output: Calorie History Received on specified email
-    # ##########################
+    '''
+    send_email() function shares Calorie History with friend's email
+    route "/send_email" will redirect to send_email() function which redirects to friends.html page.
+    Input: Email
+    Output: Latest Week Calorie History received on specified email
+   ''' # ##########################'''
     email = session.get('email')
     data = list(mongo.db.calories.find({'email': email}, {'date', 'email', 'calories'}))
     workout_data = list(mongo.db.workout.find({'email': email}, {'date', 'email', 'burnout'}))
@@ -530,6 +530,7 @@ def send_email():
     friend_email = str(request.form.get('share')).strip()
     friend_email = str(friend_email).split(',')
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+
     #Storing sender's email address and password
     sender_email = "calorieapp508@gmail.com"
     sender_password = c.email_password
