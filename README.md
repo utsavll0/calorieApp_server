@@ -106,11 +106,11 @@
  Step 2: 
   Git Clone the Repository 
   
-    git clone https://github.com/rishi2019194/calorieApp_server.git
+    git clone https://github.com/rishi2019194/calorieApp.git
     
   (OR) Download the .zip file on your local machine
   
-    https://github.com/rishi2019194/calorieApp_server.git
+    https://github.com/rishi2019194/calorieApp
   
  Step 3:
    Follow the remaining steps in the Wiki-page of the repository - https://github.com/rishi2019194/calorieApp/wiki/Installation-and-setup
