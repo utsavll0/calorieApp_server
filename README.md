@@ -20,7 +20,7 @@
   - [FitnessBot](#fitness-advisor-bot)
   - [BMI Calculator](#bmi-tracker-feature)
   - [Friends, Enrolled Programs](#collaboration-and-enrollment-feature)
-- [Enhancements Done in the Project](#enhancements-done-in-the-project)
+- [Enhancements Done in the Project](#project-3-delta)
 - [Steps for Execution:](#steps-for-execution)
 - [Future Scope](#future-scope)
 - [Contribute](#contribute-to-the-project)
@@ -45,11 +45,10 @@
  - **User-Friendly Accessibility:** Accessible to users of all levels with a user-friendly interface
 
 ## Project Documentation
+Checkout for project documentation at our [wiki page](https://github.com/rishi2019194/calorieApp/wiki)
 
 ## Project Presentation Video
-
-
-
+You can see the project presentation at - 
 
 ## TechStack Used for the Development of Project
 
@@ -85,7 +84,7 @@
   
   ### Fitness Advisor Bot
   The fitness advisor bot, i.e., FitnessBot uses OpenAI to recommend the user-fitness advices.
-  For further reference, refer to the [FitnessBot] page in the Wiki.
+  For further reference, refer to the [FitnessBot](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#fitnessbot) page in the Wiki.
   
   ### BMI Tracker Feature
   As part of BMI-Tracker functionality, the user can calculate his/her BMI and corresponding category and even his/her country's avg BMI.
@@ -115,7 +114,8 @@
  Step 3:
    Follow the remaining steps in the Wiki-page of the repository - https://github.com/rishi2019194/calorieApp/wiki/Installation-and-setup
   
-## Enhancements Done In the Project
+## Project 3 Delta
+Check out the significant enhancements that we made for Project 3 [here](https://github.com/rishi2019194/calorieApp/wiki/The-Delta)
 
 ## Future Scope
 ## Contribute to the Project!
