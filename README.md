@@ -11,7 +11,8 @@
 # Table of Contents  
 
 - [Why use BurnOut?](#why-use-burnout)
-- [Implementation](#implementation)
+- [Project Documentation](#project-documentation)
+- [Project Presentation Video](#project-presentation-video)
 - [TechStack Used for the Development of Project:](#techstack-used-for-the-development-of-project)
 - [Core Functionalities of the Application:](#core-functionalities-of-the-application)
   - [Register, Login, User-Profile](#user-authentication-management-system)
@@ -19,14 +20,16 @@
   - [FitnessBot](#fitness-advisor-bot)
   - [BMI Calculator](#bmi-tracker-feature)
   - [Friends, Enrolled Programs](#collaboration-and-enrollment-feature)
+- [Enhancements Done in the Project](#enhancements-done-in-the-project)
 - [Steps for Execution:](#steps-for-execution)
 - [Future Scope](#future-scope)
-- [Team Members](#team-members)
-- [Contribution](#contribution)
+- [Contribute](#contribute-to-the-project)
+- [Team Members](#contributors)
+- [Contact](#contact)
 - [License](#license)
 
 
-# Why use BurnOut?
+## Why use BurnOut?
 <img src="https://media.giphy.com/media/IAocXiLUK4Y8t28IKC/giphy.gif"
   width="30%"
   align="right"
@@ -41,13 +44,14 @@
  - **Social Connectivity:** Connect with friends, share progress, and stay motivated together
  - **User-Friendly Accessibility:** Accessible to users of all levels with a user-friendly interface
 
-# Implementation
+## Project Documentation
 
-Link to the implementation video of the BurnOut application:
+## Project Presentation Video
 
 
 
-# TechStack Used for the Development of Project
+
+## TechStack Used for the Development of Project
 
 <code><a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg"></a></code>
 <code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/w3_css/w3_css-ar21.svg"></a></code> <code><a href="https://www.javascript.com/" target="_blank"><img height="50" src="https://www.vectorlogo.zone/logos/javascript/javascript-ar21.svg"></a></code>
@@ -70,29 +74,29 @@ Link to the implementation video of the BurnOut application:
 <img src="https://media.giphy.com/media/kH6CqYiquZawmU1HI6/giphy.gif" width ="150"/> 
 </p>
 
-# Core Functionalities of the Application
-  ## User Authentication Management System
+## Core Functionalities of the Application
+  ### User Authentication Management System
   Via this feature the user can register/log-in to the application and even update his profile at a later stage.
   For further reference, refer to the [register](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#register), [log-in](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#login) and [user-profile](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#set-user-profile) pages in the Wiki.
   
-  ## User Fitness Tracker
+  ### User Fitness Tracker
   Using this feature the user can enter the calories he/she gained or burnt over the period and also keep track of the last 7 seven days calories.
   For further reference, refer to the [Enter-Calories](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-calories-in), [Enter-Burnout](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-burnout) and [Your-Plan](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-plan) pages in the Wiki.
   
-  ## Fitness Advisor Bot
+  ### Fitness Advisor Bot
   The fitness advisor bot, i.e., FitnessBot uses OpenAI to recommend the user-fitness advices.
   For further reference, refer to the [FitnessBot] page in the Wiki.
   
-  ## BMI Tracker Feature
+  ### BMI Tracker Feature
   As part of BMI-Tracker functionality, the user can calculate his/her BMI and corresponding category and even his/her country's avg BMI.
   For further reference, go to the [BMI-Calculator](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-bmi) page in the Wiki.
   
-  ## Collaboration and Enrollment Feature
+  ### Collaboration and Enrollment Feature
   Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs.
   For further reference, visit the [Friends](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#adding-friends) and the [Enrolled-Plans]() pages in the Wiki.
   
 
-# Steps for execution
+## Steps for execution
  
  Step 1:
  Install MongoDB using the following link:
@@ -102,57 +106,39 @@ Link to the implementation video of the BurnOut application:
  Step 2: 
   Git Clone the Repository 
   
-    git clone https://github.com/deekay2310/calorieApp_server.git
+    git clone https://github.com/rishi2019194/calorieApp_server.git
     
   (OR) Download the .zip file on your local machine
   
-    https://github.com/deekay2310/calorieApp_server.git
+    https://github.com/rishi2019194/calorieApp_server.git
   
  Step 3:
    Follow the remaining steps in the Wiki-page of the repository - https://github.com/rishi2019194/calorieApp/wiki/Installation-and-setup
   
-  # Enhancements
+## Enhancements Done In the Project
 
-   1. Make the website view port adaptable - the website should look good on phone, tablet and computer.
-   2. Chatbot to guide through the application.
-   3. Share workout plans with friends via email.
-   4. Bug Fixes
+## Future Scope
+## Contribute to the Project!
 
-   
-   # Contributers
-   
-<center>
-  <table>
-    <tr>
-        <td align="center"><a href="https://github.com/utsavll0"><img src="https://avatars.githubusercontent.com/utsavll0" width="100px;" alt=""/><br /><sub><b>Utsavkumar Lal</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/neha7799"><img src="https://avatars.githubusercontent.com/neha7799" width="100px;" alt=""/><br /><sub><b>Neha Patil</b></sub></a></td>
-    <td align="center"><a href="https://github.com/ojas1901"><img src="https://avatars.githubusercontent.com/ojas1901" width="100px;" alt=""/><br /><sub><b>Ojas Kulkarni</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Viggy12126"><img src="https://avatars.githubusercontent.com/Viggy12126" width="100px;" alt=""/><br /><sub><b>Vighnesh Hegde</b></sub></a><br /></td>
-    </tr>
-    <tr>
-      <tr><td></td></tr>
-        <td align="center"><a href="https://github.com/deekay2310"><img src="https://avatars.githubusercontent.com/u/29257773?v=4" width="100px;" alt=""/><br /><sub><b>Dev Kumar</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/PrakruthiSomashekar"><img src="https://avatars.githubusercontent.com/u/62984587?v=4" width="100px;" alt=""/><br /><sub><b>Prakruthi Somashekar</b></sub></a></td>
-    <td align="center"><a href="https://github.com/radhikaraman20"><img src="https://avatars.githubusercontent.com/u/89432698?s=400&v=4" width="100px;" alt=""/><br /><sub><b>Radhika Raman</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/RohanSinha96"><img src="https://avatars.githubusercontent.com/u/15325746?v=4" width="100px;" alt=""/><br /><sub><b>Rohan Sinha</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/SunidhiHegde"><img src="https://avatars.githubusercontent.com/u/62884191?v=4" width="100px;" alt=""/><br /><sub><b>Sunidhi Hegde</b></sub></a><br /></td>
-    </tr>
-  </table>
-</center>
+Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the PopcornPicks source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
 
-  # Contribution
-  
-  Please refer the [CONTRIBUTING.md](https://github.com/deekay2310/calorieApp_server/blob/main/CONTRIBUTING.md) file for instructions on how to contribute to our repository.
+## Contributors
+[Aditya Pai Brahmavar](https://www.linkedin.com/in/adityapai16/)<br/>
+[Ananya Mantravadi](https://www.linkedin.com/in/ananya-mantravadi/)<br/>
+[Rishi Singhal](https://www.linkedin.com/in/rishi-singhal1101/)<br/>
+[Samarth Shetty](https://www.linkedin.com/in/samarthshetty09/)<br/>
 
-  <p align="center">
-    <a href="https://github.com/deekay2310/calorieApp_server/issues/new/choose">Report Bug</a>
-    /
-    <a href="https://github.com/deekay2310/calorieApp_server/issues/new/choose">Request Feature</a>
-  </p>
+## Contact
+In case of any issues, please e-mail your queries to calorieapp508@gmail.com or raise an issue on this repository.
 
-  # License
-  
-  This project is licensed under the MIT License.
-  
+## Join the BurnOut Community:
+Contribute to the project and help us refine fitness goals.
+Share your workout experiences and wellness achievements with us.
+Together, let's make BurnOut the ultimate fitness companion!
+BurnOut is more than just an app; it's a commitment to a healthier lifestyle, and we invite you to be a part of this empowering journey. Start tracking, connecting, and achieving your fitness goals like never before with BurnOut!
+Let's make wellness journeys extraordinary together!"
+
+## License
+This project is under the MIT License.
   
 
