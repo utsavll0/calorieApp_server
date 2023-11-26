@@ -1,21 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div id="dashboard-data card">
-    <h5 class="card-header">Your Activities</h5>
+<div id="dashboard-data" class="card text-center">
+    <h5 class="card-header" style="font-size: 30px;">Your Activities</h5>
     <div class="card-body">
-        <p class="border-bottom mb-4 h6" id="enroll_legend">Enrolled Plans</p>
+        <p class="border-bottom mb-4 h6" id="enroll_legend" style="font-size: 28px;">Enrolled Plans</p>
         <p class="card-text" id="enroll">
+            
             {% set unique_plans = [] %}
+            {% set color_index = 0 %}
+            
             {% for plan in enrolled_plans %}
                 {% if plan['Status'] not in unique_plans %}
-                    {{ plan['Status'] }}<br>
+                    <span style="font-size: 25px; color: {{ [' #2ecc71', '#e74c3c'][color_index % 2] }};">{{ plan['Status'] }}</span><br>
                     {% set _ = unique_plans.append(plan['Status']) %}
+                    {% set color_index = color_index + 1 %}
                 {% endif %}
             {% endfor %}
+            
         </p>
         <br>
-        <p class="border-bottom mb-4 h6" id="calories_legend"></p>
+
+        <!-- Progress Tracking -->
+        {% set progress_percentage = progress_percentage %}  {# Replace 75 with the dynamic value you pass #}
+        <div class="progress mt-4" style="height: 30px;">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ progress_percentage }}%;" aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                {{ progress_percentage }}%
+            </div>
+        </div>
+        <p class="mt-2" style="font-size: 20px;">Your Overall Progress: {{ progress_percentage }}%</p>
+
+        <!-- Motivational Quotes -->
+        <div class="mt-4">
+            <p class="h6">Motivational Quotes:</p>
+            <p class="text-muted">"Success is the sum of small efforts, repeated day in and day out."</p>
+            <p class="text-muted">"Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle."</p>
+        </div>
+        
     </div>
 </div>
 
