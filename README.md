@@ -92,7 +92,7 @@
   For further reference, go to the [BMI-Calculator](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-bmi) page in the Wiki.
   
   ### Collaboration and Enrollment Feature
-  Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs.
+  Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs and look at their progress so far.
   For further reference, visit the [Friends](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#adding-friends) and the [Enrolled-Plans]() pages in the Wiki.
   
 
@@ -120,7 +120,7 @@
 ## Future Scope
 ## Contribute to the Project!
 
-Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the PopcornPicks source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
+Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the BurnOut source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
 
 ## Contributors
 [Aditya Pai Brahmavar](https://www.linkedin.com/in/adityapai16/)<br/>
