@@ -92,7 +92,7 @@
   For further reference, go to the [BMI-Calculator](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-bmi) page in the Wiki.
   
   ### Collaboration and Enrollment Feature
-  Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs.
+  Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs and look at their progress so far.
   For further reference, visit the [Friends](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#adding-friends) and the [Enrolled-Plans]() pages in the Wiki.
   
 
