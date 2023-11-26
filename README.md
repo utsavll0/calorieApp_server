@@ -120,7 +120,7 @@
 ## Future Scope
 ## Contribute to the Project!
 
-Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the PopcornPicks source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
+Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the BurnOut source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
 
 ## Contributors
 [Aditya Pai Brahmavar](https://www.linkedin.com/in/adityapai16/)<br/>
