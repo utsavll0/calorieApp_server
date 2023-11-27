@@ -48,7 +48,7 @@
 Checkout for project documentation at our [wiki page](https://github.com/rishi2019194/calorieApp/wiki)
 
 ## Project Presentation Video
-You can see the project presentation at - 
+You can see the project presentation at - https://www.youtube.com/watch?v=UCcJEpKzulI
 
 ## TechStack Used for the Development of Project
 
