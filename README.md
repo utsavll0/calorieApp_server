@@ -75,24 +75,21 @@ You can see the project presentation at -
 
 ## Core Functionalities of the Application
   ### User Authentication Management System
-  Via this feature the user can register/log-in to the application and even update his profile at a later stage.
-  For further reference, refer to the [register](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#register), [log-in](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#login) and [user-profile](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#set-user-profile) pages in the Wiki.
+  <img src="https://github.com/rishi2019194/calorieApp/blob/main/static/videos/User_Profile_SE.gif"> <br> Via this feature the user can register/log-in to the application and even update his profile at a later stage.
+  For further reference, refer to the [register](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#register),[log-in](https://github.com/rishi2019194/calorieApp/wiki/Corefunctionality(Backend)#login) and [user-profile](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#set-user-profile) pages in the Wiki.
   
   ### User Fitness Tracker
-  Using this feature the user can enter the calories he/she gained or burnt over the period and also keep track of the last 7 seven days calories.
-  For further reference, refer to the [Enter-Calories](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-calories-in), [Enter-Burnout](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-burnout) and [Your-Plan](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-plan) pages in the Wiki.
+  <img src="https://github.com/rishi2019194/calorieApp/blob/main/static/videos/Fitness_SE.gif"> <br> Using this feature the user can enter the calories he/she gained or burnt over the period and also keep track of the last 7 seven days calories. For further reference, refer to the [Enter-Calories](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-calories-in), 
+  [Enter-Burnout](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#enter-burnout) and [Your-Plan](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-plan) pages in the Wiki.
   
   ### Fitness Advisor Bot
-  The fitness advisor bot, i.e., FitnessBot uses OpenAI to recommend the user-fitness advices.
-  For further reference, refer to the [FitnessBot](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#fitnessbot) page in the Wiki.
+  <img src="https://github.com/rishi2019194/calorieApp/blob/main/static/videos/FitnessBot.gif"> <br> The fitness advisor bot, i.e., FitnessBot uses OpenAI to recommend the user-fitness advices. For further reference, refer to the [FitnessBot](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#fitnessbot) page in the Wiki.
   
   ### BMI Tracker Feature
-  As part of BMI-Tracker functionality, the user can calculate his/her BMI and corresponding category and even his/her country's avg BMI.
-  For further reference, go to the [BMI-Calculator](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-bmi) page in the Wiki.
+  <img src="https://github.com/rishi2019194/calorieApp/blob/main/static/videos/BMI.gif"> <br> As part of BMI-Tracker functionality, the user can calculate his/her BMI and corresponding category and even his/her country's avg BMI. For further reference, go to the [BMI-Calculator](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#check-your-bmi) page in the Wiki.
   
   ### Collaboration and Enrollment Feature
-  Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs and look at their progress so far.
-  For further reference, visit the [Friends](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#adding-friends) and the [Enrolled-Plans]() pages in the Wiki.
+  <img src="https://github.com/rishi2019194/calorieApp/blob/main/static/videos/Collab_Enroll.gif"> <br> Finally as part of this functionality, the user can connect with new people and share their progress with others via email. Also, they can enroll in different fitness programs and look at their progress so far. For further reference, visit the [Friends](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality(Backend)#adding-friends) and the [Enrolled-Plans](https://github.com/rishi2019194/calorieApp/wiki/Core-functionality-(Backend)#check-your-enrolled-plans) pages in the Wiki.
   
 
 ## Steps for execution
