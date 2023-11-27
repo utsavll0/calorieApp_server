@@ -532,7 +532,7 @@ def plans():
             current_calories += net_calories
 
         progress_percentage = int(
-            abs((current_calories / target_calories_to_burn) * 1000))
+            abs((current_calories / (target_calories_to_burn+10000)) * 1000))
         print(progress_percentage)
     return render_template("plans.html",
                            enrolled_plans=enrolled_plans,
