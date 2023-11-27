@@ -121,6 +121,7 @@ Check out the significant enhancements that we made for Project 3 [here](https:/
 - [Enrollment Page](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#enrollment-page)
 - [Code refactoring and test suite](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#code-refactoring--test-suite)
 - [Documentation](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#documentation)
+- [Main Functions](https://github.com/rishi2019194/calorieApp/wiki/Main-Functions-for-BurnOut)
 
 ## Future Scope
 1. Continuous User Feedback and Improvement: Implement a feedback system to gather user opinions and suggestions. Regularly update the app based on user feedback to address issues, introduce new features, and enhance overall usability.
