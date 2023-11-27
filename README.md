@@ -124,11 +124,11 @@ Check out the significant enhancements that we made for Project 3 [here](https:/
 - [Main Functions](https://github.com/rishi2019194/calorieApp/wiki/Main-Functions-for-BurnOut)
 
 ## Future Scope
-1. Continuous User Feedback and Improvement: Implement a feedback system to gather user opinions and suggestions. Regularly update the app based on user feedback to address issues, introduce new features, and enhance overall usability.
-2. Accessibility Features: Ensure the application is accessible to a diverse user base, including those with disabilities. Consider features such as voice-guided navigation, screen reader compatibility, and other accessibility enhancements.
-3. Integration with Social Media Platforms: Enhance the social connectivity aspect by allowing users to share their achievements, workout routines, and progress on popular social media platforms. This could foster a sense of community and encouragement among users.
-4. Meal Planning and Recipe Suggestions: Extend the app to include features for meal planning and recipe suggestions based on users' dietary preferences and fitness goals. This could involve partnering with nutritionists or using existing databases for food information.
-5. Gamification Features: Introduce gamification elements to make the app more engaging. Incorporate challenges, achievements, and rewards to motivate users and create a sense of accomplishment.
+**1. Continuous User Feedback and Improvement:** Implement a feedback system to gather user opinions and suggestions. Regularly update the app based on user feedback to address issues, introduce new features, and enhance overall usability.<br>
+**2. Accessibility Features:** Ensure the application is accessible to a diverse user base, including those with disabilities. Consider features such as voice-guided navigation, screen reader compatibility, and other accessibility enhancements.<br>
+**3. Integration with Social Media Platforms:** Enhance the social connectivity aspect by allowing users to share their achievements, workout routines, and progress on popular social media platforms. This could foster a sense of community and encouragement among users.<br>
+**4. Meal Planning and Recipe Suggestions:** Extend the app to include features for meal planning and recipe suggestions based on users' dietary preferences and fitness goals. This could involve partnering with nutritionists or using existing databases for food information.<br>
+**5. Gamification Features:** Introduce gamification elements to make the app more engaging. Incorporate challenges, achievements, and rewards to motivate users and create a sense of accomplishment.
 
 ## Contribute to the Project!
 
