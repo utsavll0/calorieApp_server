@@ -115,9 +115,18 @@ You can see the project presentation at -
    Follow the remaining steps in the Wiki-page of the repository - https://github.com/rishi2019194/calorieApp/wiki/Installation-and-setup
   
 ## Project 3 Delta
-Check out the significant enhancements that we made for Project 3 [here](https://github.com/rishi2019194/calorieApp/wiki/The-Delta)
+Check out the significant enhancements that we made for Project 3 [here](https://github.com/rishi2019194/calorieApp/wiki/The-Delta).
+- [Dynamic Date](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#dynamic-date)
+- [Graph Calorie Tracking Visualization](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#graph-functionality---calorie-tracker)
+- [Week Summary Email Notifier](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#email-feature)
+- [FitnessBot: AI Chatbot](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#chatbot)
+- [BMI Analysis & Country-wise Insights](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#bmi-analysis-and-insights)
+- [Enrollment Page](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#enrollment-page)
+- [Code refactoring and test suite](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#code-refactoring--test-suite)
+- [Documentation](https://github.com/rishi2019194/calorieApp/wiki/The-Delta#documentation)
 
 ## Future Scope
+
 ## Contribute to the Project!
 
 Please refer to the [CONTRIBUTING.md](https://github.com/rishi2019194/calorieApp/blob/main/CONTRIBUTING.md) if you want to contribute to the BurnOut source code. Follow all the guidelines mentioned in the same and raise a pull request, we would love to look at it ❤️❤️!
