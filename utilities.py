@@ -102,19 +102,18 @@ def get_bmi_category(bmi):
     else:
         return 'Obese'
 
+
 def get_entries_for_email(db, email, start_date, end_date):
 
     # Query to find entries for a given email within the date range
-    query = {
-        'email': email,
-        'date': {'$gte': start_date, '$lte': end_date}
-    }
+    query = {'email': email, 'date': {'$gte': start_date, '$lte': end_date}}
 
     # Fetch entries from MongoDB
     entries_cal = db.calories.find(query)
     entries_workout = db.workout.find(query)
 
     return list(entries_cal), list(entries_workout)
+
 
 def total_calories_to_burn(target_weight: int, current_weight: int):
     return int((target_weight - current_weight) * 7700)

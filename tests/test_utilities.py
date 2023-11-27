@@ -15,27 +15,37 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 from utilities import *
 
+
 class TestUtilities(unittest.TestCase):
 
     @patch('openai.ChatCompletion.create')
     def test_chatcompletion_pass(self, mock_openai_create):
         # Mock the OpenAI API call
         mock_openai_create.return_value = {
-            'choices': [{'message': {'content': 'Mocked response'}}]
+            'choices': [{
+                'message': {
+                    'content': 'Mocked response'
+                }
+            }]
         }
 
         user_input = "Hello"
         impersonated_role = "Assistant"
         explicit_input = "Provide assistance"
         chat_history = "User: Hi\nAssistant: Hello"
-        result = chatcompletion(user_input, impersonated_role, explicit_input, chat_history)
+        result = chatcompletion(user_input, impersonated_role, explicit_input,
+                                chat_history)
         self.assertEqual(result, 'Mocked response')
 
     @patch('openai.ChatCompletion.create')
     def test_chatcompletion_fail(self, mock_openai_create):
         # Mock the OpenAI API call
         mock_openai_create.return_value = {
-            'choices': [{'message': {'content': 'Mocked response'}}]
+            'choices': [{
+                'message': {
+                    'content': 'Mocked response'
+                }
+            }]
         }
 
         user_input = "Hello"
@@ -43,7 +53,8 @@ class TestUtilities(unittest.TestCase):
         explicit_input = "Provide fitness advice"
         chat_history = "User: Hi\nAssistant: Hello"
 
-        result = chatcompletion(user_input, impersonated_role, explicit_input, chat_history)
+        result = chatcompletion(user_input, impersonated_role, explicit_input,
+                                chat_history)
 
         self.assertNotEqual(result, '')
 
@@ -51,7 +62,11 @@ class TestUtilities(unittest.TestCase):
     def test_chat_pass(self, mock_openai_create):
         # Mock the OpenAI API call
         mock_openai_create.return_value = {
-            'choices': [{'message': {'content': 'Mocked response'}}]
+            'choices': [{
+                'message': {
+                    'content': 'Mocked response'
+                }
+            }]
         }
 
         chat_history = "User: Hi\nAssistant: Hello"
@@ -62,7 +77,8 @@ class TestUtilities(unittest.TestCase):
         impersonated_role = "Assistant"
         explicit_input = "Provide assistance"
 
-        result = chat(chat_history, name, chatgpt_output, user_input, history_file, impersonated_role, explicit_input)
+        result = chat(chat_history, name, chatgpt_output, user_input,
+                      history_file, impersonated_role, explicit_input)
 
         self.assertEqual(result, 'Mocked response')
 
@@ -70,7 +86,11 @@ class TestUtilities(unittest.TestCase):
     def test_chat_fail(self, mock_openai_create):
         # Mock the OpenAI API call
         mock_openai_create.return_value = {
-            'choices': [{'message': {'content': 'Mocked response'}}]
+            'choices': [{
+                'message': {
+                    'content': 'Mocked response'
+                }
+            }]
         }
 
         chat_history = "User: Hi\nAssistant: Hello"
@@ -81,7 +101,8 @@ class TestUtilities(unittest.TestCase):
         impersonated_role = "Assistant"
         explicit_input = "Provide assistance"
 
-        result = chat(chat_history, name, chatgpt_output, user_input, history_file, impersonated_role, explicit_input)
+        result = chat(chat_history, name, chatgpt_output, user_input,
+                      history_file, impersonated_role, explicit_input)
 
         self.assertNotEqual(result, 'Incorrect response')
 
@@ -96,7 +117,9 @@ class TestUtilities(unittest.TestCase):
             impersonated_role = "Assistant"
             explicit_input = "Provide assistance"
 
-            result = get_response(chat_history, name, chatgpt_output, user_text, history_file, impersonated_role, explicit_input)
+            result = get_response(chat_history, name, chatgpt_output,
+                                  user_text, history_file, impersonated_role,
+                                  explicit_input)
 
             self.assertEqual(result, 'Mocked response')
 
@@ -110,12 +133,13 @@ class TestUtilities(unittest.TestCase):
         impersonated_role = "Assistant"
         explicit_input = "Provide assistance"
 
-        result = get_response(chat_history, name, chatgpt_output, user_text, history_file, impersonated_role, explicit_input)
+        result = get_response(chat_history, name, chatgpt_output, user_text,
+                              history_file, impersonated_role, explicit_input)
 
         self.assertNotEqual(result, 'Incorrect response')
 
     def test_get_entries_for_email_pass(self):
-        
+
         mock_db = MagicMock()
         entries_data = [{'email': 'test@example.com', 'date': '2023-11-23'}]
         mock_db.calories.find.return_value = entries_data
@@ -124,12 +148,13 @@ class TestUtilities(unittest.TestCase):
         start_date = datetime(2023, 1, 1)
         end_date = datetime(2023, 12, 31)
 
-        result, [] = get_entries_for_email(mock_db, email, start_date, end_date)
+        result, [] = get_entries_for_email(mock_db, email, start_date,
+                                           end_date)
 
         self.assertEqual(result, entries_data)
 
     def test_get_entries_for_email_fail(self):
-        
+
         mock_db = MagicMock()
         entries_data = [{'email': 'test@example.com', 'date': '2023-11-23'}]
         mock_db.calories.find.return_value = entries_data
@@ -140,7 +165,10 @@ class TestUtilities(unittest.TestCase):
 
         result, _ = get_entries_for_email(mock_db, email, start_date, end_date)
 
-        self.assertNotEqual(result, [{'email': 'wrong@example.com', 'date': '2023-11-23'}])
+        self.assertNotEqual(result, [{
+            'email': 'wrong@example.com',
+            'date': '2023-11-23'
+        }])
 
     def test_calc_bmi_pass(self):
         result = calc_bmi(70, 175)
@@ -177,25 +205,26 @@ class TestUtilities(unittest.TestCase):
     def test_total_calories_to_burn_pass(self):
         result = total_calories_to_burn(70, 60)
         # Expected result: (70 - 60) * 7700 = 10000
-        self.assertEqual(result, 77000)  
+        self.assertEqual(result, 77000)
 
     def test_total_calories_to_burn_fail(self):
         result = total_calories_to_burn(70, 60)
         # This should fail, as the expected result is 10000
-        self.assertNotEqual(result, 5000)  
+        self.assertNotEqual(result, 5000)
 
     def test_calories_to_burn_pass(self):
         target_date = datetime.today() + timedelta(days=10)
         start_date = datetime.today() - timedelta(days=5)
         result = calories_to_burn(2000, 1500, target_date, start_date)
-        self.assertEqual(result, 1166)  
+        self.assertEqual(result, 1166)
 
     def test_calories_to_burn_fail(self):
         target_date = datetime.today() + timedelta(days=10)
         start_date = datetime.today() - timedelta(days=5)
         result = calories_to_burn(2000, 1500, target_date, start_date)
         # This should fail, as the expected result is 100
-        self.assertNotEqual(result, 50)  
+        self.assertNotEqual(result, 50)
+
 
 if __name__ == '__main__':
     unittest.main()

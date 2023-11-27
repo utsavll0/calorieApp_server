@@ -24,7 +24,7 @@ df = pd.read_csv('model/WHO_obesityByCountry_2016.csv')
 
 for index, row in df.iterrows():
     country_name = row['Country']
-    both_sexes = row['Both.sexes'] 
+    both_sexes = row['Both.sexes']
     male = row['Male']
     female = row['Female']
 

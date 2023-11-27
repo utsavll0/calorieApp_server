@@ -184,7 +184,8 @@ def user_profile():
     Output: Value update in database and redirected to home login page
     """
     if session.get('email'):
-        curr_profile = list(mongo.db.user.find({'email':session.get('email')}))
+        curr_profile = list(mongo.db.user.find({'email':
+                                                session.get('email')}))
         # print(curr_profile)
         form = UserProfileForm()
         if form.validate_on_submit():
@@ -203,14 +204,16 @@ def user_profile():
                     }
                 })
 
-
             flash(f'User Profile Updated', 'success')
             return render_template('display_profile.html',
                                    status=True,
                                    form=form)
     else:
         return redirect(url_for('login'))
-    return render_template('user_profile.html', status=True, form=form, curr_profile=curr_profile)
+    return render_template('user_profile.html',
+                           status=True,
+                           form=form,
+                           curr_profile=curr_profile)
 
 
 @app.route("/calories", methods=['GET', 'POST'])
@@ -228,7 +231,8 @@ def calories():
         form = CalorieForm()
         if form.validate_on_submit():
             email = session.get('email')
-            date = form.date.data.strftime('%Y-%m-%d')  # Get the selected date from the form
+            date = form.date.data.strftime(
+                '%Y-%m-%d')  # Get the selected date from the form
             food = form.food.data
             match = re.search(r'\((\d+)\)', food)
             if match:
@@ -244,7 +248,9 @@ def calories():
             return redirect(url_for('calories'))
     else:
         return redirect(url_for('home'))
-    return render_template('calories.html', form=form, time=datetime.now().strftime('%Y-%m-%d'))
+    return render_template('calories.html',
+                           form=form,
+                           time=datetime.now().strftime('%Y-%m-%d'))
 
 
 @app.route("/workout", methods=['GET', 'POST'])
@@ -260,16 +266,20 @@ def workout():
             burnout = form.burnout.data
             # print(burnout)
             mongo.db.workout.insert_one({
-                'date': form.date.data.strftime('%Y-%m-%d'),  # Get the selected date from the form
-                'email': email,
-                'burnout': burnout
+                'date':
+                form.date.data.strftime(
+                    '%Y-%m-%d'),  # Get the selected date from the form
+                'email':
+                email,
+                'burnout':
+                burnout
             })
 
             flash('Successfully updated the data', 'success')
             return redirect(url_for('workout'))
     else:
         return redirect(url_for('home'))
-    
+
     return render_template('workout.html', form=form, time=now)
 
 
@@ -288,14 +298,17 @@ def history():
 
     # Find out the last 7 day's calories burnt by the user
     calorie_day_map = {}
-    entries_cal, entries_workout = u.get_entries_for_email(mongo.db, email, (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'), datetime.today().strftime('%Y-%m-%d'))
+    entries_cal, entries_workout = u.get_entries_for_email(
+        mongo.db, email,
+        (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d'),
+        datetime.today().strftime('%Y-%m-%d'))
     # print(entries)
     for entry in entries_cal:
         if entry['_id'] == 'Other':
             continue
         net_calories = int(entry['calories'])
         curr_date = entry['date']
-        if(curr_date not in calorie_day_map):
+        if (curr_date not in calorie_day_map):
             calorie_day_map[curr_date] = net_calories
         else:
             calorie_day_map[curr_date] += net_calories
@@ -305,12 +318,12 @@ def history():
             continue
         net_calories = -int(entry['burnout'])
         curr_date = entry['date']
-        if(curr_date not in calorie_day_map):
+        if (curr_date not in calorie_day_map):
             calorie_day_map[curr_date] = net_calories
         else:
             calorie_day_map[curr_date] += net_calories
     calorie_day_map = dict(sorted(calorie_day_map.items()))
-    
+
     labels = list(calorie_day_map.keys())
     values = list(calorie_day_map.values())
     for i in range(len(values)):
@@ -331,7 +344,10 @@ def history():
     # Find out how many calories user has gained or burnt uptill now
     query = {
         'email': email,
-        'date': {'$gte': user_start_date, '$lte': datetime.today().strftime('%Y-%m-%d')}
+        'date': {
+            '$gte': user_start_date,
+            '$lte': datetime.today().strftime('%Y-%m-%d')
+        }
     }
 
     entries_till_today_cal = mongo.db.calories.find(query)
@@ -471,27 +487,33 @@ def bmi_calci():
 
     return render_template("bmi_cal.html", bmi=bmi, bmi_category=bmi_category)
 
+
 @app.route('/plans', methods=['GET', 'POST'])
 def plans():
 
-    if(session.get('email')):
+    if (session.get('email')):
         email = get_session = session.get('email')
         enrolled_plans = list(mongo.db.plans.find({'Email': email}))
 
         # The first day when the user registered or started using the app
         user_start_date = mongo.db.user.find({'email': email})[0]['start_date']
-        target_weight = mongo.db.user.find({'email': email})[0]['target_weight']
+        target_weight = mongo.db.user.find({'email':
+                                            email})[0]['target_weight']
         current_weight = mongo.db.user.find({'email': email})[0]['weight']
 
         # Find out the actual calories which user needed to burn/gain to achieve goal from the start day
         target_calories_to_burn = u.total_calories_to_burn(
-            target_weight=int(target_weight), current_weight=int(current_weight))
+            target_weight=int(target_weight),
+            current_weight=int(current_weight))
         # print(f'########## {target_calories_to_burn}')
 
         # Find out how many calories user has gained or burnt uptill now
         query = {
             'email': email,
-            'date': {'$gte': user_start_date, '$lte': datetime.today().strftime('%Y-%m-%d')}
+            'date': {
+                '$gte': user_start_date,
+                '$lte': datetime.today().strftime('%Y-%m-%d')
+            }
         }
 
         entries_till_today_cal = mongo.db.calories.find(query)
@@ -508,10 +530,13 @@ def plans():
                 continue
             net_calories = -int(entry['burnout'])
             current_calories += net_calories
-        
-        progress_percentage = int(abs((current_calories/target_calories_to_burn)*1000))
+
+        progress_percentage = int(
+            abs((current_calories / target_calories_to_burn) * 1000))
         print(progress_percentage)
-    return render_template("plans.html",enrolled_plans=enrolled_plans, progress_percentage=progress_percentage)
+    return render_template("plans.html",
+                           enrolled_plans=enrolled_plans,
+                           progress_percentage=progress_percentage)
 
 
 @app.route('/chatbot', methods=['GET', 'POST'])
@@ -525,13 +550,14 @@ def get_bot_response():
     userText = request.args.get('msg')
     return str(
         u.get_response(chat_history, name, chatgpt_output, userText,
-                     history_file, impersonated_role, explicit_input))
+                       history_file, impersonated_role, explicit_input))
 
 
 @app.route('/refresh', methods=['GET', 'POST'])
 def refresh():
     time.sleep(600)  # Wait for 10 minutes
     return redirect('/refresh')
+
 
 @app.route("/send_email", methods=['GET', 'POST'])
 def send_email():
@@ -542,14 +568,23 @@ def send_email():
     Output: Latest Week Calorie History received on specified email
    ''' # ##########################'''
     email = session.get('email')
-    data = list(mongo.db.calories.find({'email': email}, {'date', 'email', 'calories'}))
-    workout_data = list(mongo.db.workout.find({'email': email}, {'date', 'email', 'burnout'}))
+    data = list(
+        mongo.db.calories.find({'email': email},
+                               {'date', 'email', 'calories'}))
+    workout_data = list(
+        mongo.db.workout.find({'email': email}, {'date', 'email', 'burnout'}))
     print(data, workout_data)
 
     one_week_ago = datetime.now() - timedelta(days=7)
 
-    filtered_data = [a for a in data if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago]
-    filtered_workout_data = [a for a in workout_data if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago]
+    filtered_data = [
+        a for a in data
+        if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago
+    ]
+    filtered_workout_data = [
+        a for a in workout_data
+        if datetime.strptime(a['date'], '%Y-%m-%d') >= one_week_ago
+    ]
 
     table = [['Date', 'Email ID', 'Calories']]
 
@@ -557,7 +592,7 @@ def send_email():
         tmp = [a['date'], a['email'], a['calories']]
         table.append(tmp)
     for a in filtered_workout_data:
-        tmp = [a['date'], a['email'], int(a['burnout'])*(-1)]
+        tmp = [a['date'], a['email'], int(a['burnout']) * (-1)]
         table.append(tmp)
 
     friend_email = str(request.form.get('share')).strip()
@@ -610,17 +645,20 @@ def send_email():
     for row in positive_calories:
         positive_rows += "<tr>"
         for item in [row[0]] + [row[2]]:
-            positive_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(item)
+            positive_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(
+                item)
         positive_rows += "</tr>"
 
     negative_rows = ""
     for row in negative_calories:
         negative_rows += "<tr>"
         for item in [row[0]] + [row[2]]:
-            negative_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(item)
+            negative_rows += "<td style='border: 1px solid #dddddd; text-align: left; padding: 8px;'>{}</td>".format(
+                item)
         negative_rows += "</tr>"
 
-    formatted_html = html_table.format(sharing_email, positive_rows, negative_rows, net_calories)
+    formatted_html = html_table.format(sharing_email, positive_rows,
+                                       negative_rows, net_calories)
 
     #Logging in with sender details
     server.login(sender_email, sender_password)
@@ -791,10 +829,12 @@ def yoga():
             if request.method == 'POST':
                 enroll = "yoga"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -817,10 +857,12 @@ def swim():
             if request.method == 'POST':
                 enroll = "swimming"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -843,10 +885,12 @@ def abbs():
             if request.method == 'POST':
                 enroll = "abbs"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
     else:
         return redirect(url_for('dashboard'))
     return render_template('abbs.html', title='Abbs Smash!', form=form)
@@ -868,10 +912,12 @@ def belly():
             if request.method == 'POST':
                 enroll = "belly"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -894,10 +940,12 @@ def core():
             if request.method == 'POST':
                 enroll = "core"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
     else:
         return redirect(url_for('dashboard'))
     return render_template('core.html', title='Core Conditioning', form=form)
@@ -919,10 +967,12 @@ def gym():
             if request.method == 'POST':
                 enroll = "gym"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -945,10 +995,12 @@ def walk():
             if request.method == 'POST':
                 enroll = "walk"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -971,10 +1023,12 @@ def dance():
             if request.method == 'POST':
                 enroll = "dance"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
@@ -997,22 +1051,32 @@ def hrx():
             if request.method == 'POST':
                 enroll = "hrx"
                 mongo.db.plans.insert_one({'Email': email, 'Status': enroll})
-            enrolled_plans = list(mongo.db.plans.find({'Email':email}))
+            enrolled_plans = list(mongo.db.plans.find({'Email': email}))
             flash(f' You have succesfully enrolled in our {enroll} plan!',
                   'success')
-            return render_template('new_dashboard.html', form=form, enrolled_plans=enrolled_plans)
+            return render_template('new_dashboard.html',
+                                   form=form,
+                                   enrolled_plans=enrolled_plans)
             # return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('dashboard'))
     return render_template('hrx.html', title='HRX', form=form)
+
 
 @app.route('/get_countries', methods=['GET'])
 def get_countries():
     '''
     Populate countries in the bmi_cal.html dropdown from mongodb
     '''
-    countries = [country['country_name'] for country in mongo.db.obesity.find({}, {'country_name': 1, '_id': 0})]
+    countries = [
+        country['country_name']
+        for country in mongo.db.obesity.find({}, {
+            'country_name': 1,
+            '_id': 0
+        })
+    ]
     return jsonify({'countries': countries})
+
 
 @app.route('/get_average_bmi', methods=['GET'])
 def get_average_bmi():
@@ -1022,7 +1086,8 @@ def get_average_bmi():
     country = request.args.get('country')
     gender = request.args.get('gender')
 
-    bmi_data_for_country = list(mongo.db.obesity.find({'country_name': country}))
+    bmi_data_for_country = list(
+        mongo.db.obesity.find({'country_name': country}))
 
     # Get the keys for both sexes, male, and female
     gender_keys = ['both_sexes', 'male', 'female']
@@ -1031,18 +1096,25 @@ def get_average_bmi():
     average_bmi_data = {}
 
     # Calculate average BMI for both sexes
-    both_sexes_data = [entry[key] for entry in bmi_data_for_country for key in gender_keys if key in entry]
+    both_sexes_data = [
+        entry[key] for entry in bmi_data_for_country for key in gender_keys
+        if key in entry
+    ]
     total_both_sexes = sum(both_sexes_data)
     average_bmi_data['both_sexes'] = total_both_sexes / len(both_sexes_data)
 
     # Calculate average BMI for the selected gender
     if gender in gender_keys:
-        selected_gender_data = [entry[gender] for entry in bmi_data_for_country if gender in entry]
+        selected_gender_data = [
+            entry[gender] for entry in bmi_data_for_country if gender in entry
+        ]
         total_selected_gender = sum(selected_gender_data)
-        average_bmi_data[gender] = total_selected_gender / len(selected_gender_data)
+        average_bmi_data[gender] = total_selected_gender / len(
+            selected_gender_data)
     else:
         return jsonify({'error': 'Invalid gender parameter'}), 400
     return jsonify(average_bmi_data)
+
 
 # @app.route("/ajaxdashboard", methods=['POST'])
 # def ajaxdashboard():
